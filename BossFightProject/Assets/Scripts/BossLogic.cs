@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
@@ -32,6 +33,11 @@ public class BossLogic : MonoBehaviour
     Vector3 m_verticalMovement;
     Vector3 m_heightMovement;
     public float m_movementSpeed = 2.0f;
+    public float m_currentSpeed = 0f;
+    public float m_acceleration = .01f;
+    public Boolean m_closing = false;
+    public float m_closingDistance = 0;
+
     public float m_distanceToTarget;
     float m_gravity = 0.01f;
 
@@ -75,19 +81,32 @@ public class BossLogic : MonoBehaviour
             m_heightMovement.y = 0;
         }
 
-        Vector3 movementVector = new Vector3(direction.x * m_movementSpeed * Time.deltaTime, m_heightMovement.y, direction.z * m_movementSpeed * Time.deltaTime);
+        
 
-        if(angleDifference > m_turnAngle)
+        if(m_bossState == BossState.Moving)
         {
-            m_bossState = BossState.Turning;
-        }
-        else if (m_distanceToTarget > 3)
+            if (m_distanceToTarget > 3)
+            {
+                m_bossState = BossState.Moving;
+            }
+            else
+            {
+                m_bossState = BossState.Idle;
+            }
+        }else if (m_bossState == BossState.Idle || m_bossState == BossState.Turning)
         {
-            m_bossState = BossState.Moving;
-        }
-        else
-        {
-            m_bossState = BossState.Idle;
+            if (angleDifference > m_turnAngle)
+            {
+                m_bossState = BossState.Turning;
+            }
+            else if (m_distanceToTarget > 4.5)
+            {
+                m_bossState = BossState.Moving;
+            }
+            else
+            {
+                m_bossState = BossState.Idle;
+            }
         }
 
         switch (m_bossState)
@@ -115,19 +134,45 @@ public class BossLogic : MonoBehaviour
                     m_animator.SetFloat("TurnInput", -.5f);
                 }
                 m_animator.SetFloat("MovementInput", 0f);
-
+                m_currentSpeed = 0;
                 break;
             case BossState.Moving:
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(correctedDirection), 2F * Time.deltaTime);
+
+
+                if (m_distanceToTarget < 10 && m_currentSpeed > 2f && !m_closing)
+                {
+                    m_closing = true;
+                    m_closingDistance = m_distanceToTarget;
+                }
+
+                if (m_distanceToTarget >= 10)
+                {
+                    m_closing = false;
+                }
+
+
+                if (m_closing)
+                {
+                    m_currentSpeed = Mathf.Lerp(m_currentSpeed, .5f, .003f);
+                }
+                else
+                {
+                    m_currentSpeed = Mathf.Lerp(m_currentSpeed, m_movementSpeed, m_acceleration);
+                }
+                Vector3 movementVector = new Vector3(direction.x * m_currentSpeed * Time.deltaTime, m_heightMovement.y, direction.z * m_currentSpeed * Time.deltaTime);
                 m_characterController.Move(movementVector);
                 m_animator.SetFloat("TurnInput", 0f); 
-                m_animator.SetFloat("MovementInput", 1f);
+                m_animator.SetFloat("MovementInput", m_currentSpeed/ m_movementSpeed);
                 break;
             case BossState.Idle:
+                m_closing = false;
+                m_currentSpeed = 0;
                 m_animator.SetFloat("TurnInput", 0f);
                 m_animator.SetFloat("MovementInput", 0f);
                 break;
             default:
+                m_currentSpeed = 0;
                 m_animator.SetFloat("TurnInput", 0f);
                 m_animator.SetFloat("MovementInput", 0f);
                 break;
