@@ -44,6 +44,13 @@ public class BossLogic : MonoBehaviour
     public float m_turnAngle = 20f;
     public float m_stoppingDistance = 3.0f;
 
+    [SerializeField]
+    Collider m_weapon;
+    [SerializeField]
+    Collider m_rightHand;
+    [SerializeField]
+    Collider m_rightFoot;
+
     void Start()
     {
         m_player = GameObject.FindGameObjectWithTag("Player");
@@ -69,8 +76,8 @@ public class BossLogic : MonoBehaviour
 
 
         //Debug.Log("Angle difference: " + angleDifference);
-        Debug.Log("Current Rotation: " + transform.rotation.eulerAngles.y);
-        
+        //Debug.Log("m_Weapon enabled? " + m_Weapon.enabled);
+
 
         if (!m_characterController.isGrounded)
         {
@@ -81,9 +88,9 @@ public class BossLogic : MonoBehaviour
             m_heightMovement.y = 0;
         }
 
-        
 
-        if(m_bossState == BossState.Moving)
+
+        if (m_bossState == BossState.Moving)
         {
             if (m_distanceToTarget > 3)
             {
@@ -93,7 +100,8 @@ public class BossLogic : MonoBehaviour
             {
                 m_bossState = BossState.Idle;
             }
-        }else if (m_bossState == BossState.Idle || m_bossState == BossState.Turning)
+        }
+        else if (m_bossState == BossState.Idle || m_bossState == BossState.Turning)
         {
             if (angleDifference > m_turnAngle)
             {
@@ -117,15 +125,16 @@ public class BossLogic : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(correctedDirection), 1.2F * Time.deltaTime);
                 var newAngle = transform.rotation.eulerAngles.y;
 
-                if(currentAngle<90 && newAngle > 270)
+                if (currentAngle < 90 && newAngle > 270)
                 {
                     newAngle *= -1;
-                }else if(currentAngle > 270 && newAngle<90)
+                }
+                else if (currentAngle > 270 && newAngle < 90)
                 {
                     currentAngle *= -1;
                 }
 
-                if(currentAngle - newAngle < 0)
+                if (currentAngle - newAngle < 0)
                 {
                     m_animator.SetFloat("TurnInput", .5f);
                 }
@@ -160,8 +169,8 @@ public class BossLogic : MonoBehaviour
                 }
                 Vector3 movementVector = new Vector3(direction.x * m_currentSpeed * Time.deltaTime, m_heightMovement.y, direction.z * m_currentSpeed * Time.deltaTime);
                 m_characterController.Move(movementVector);
-                m_animator.SetFloat("TurnInput", 0f); 
-                m_animator.SetFloat("MovementInput", m_currentSpeed/ m_movementSpeed);
+                m_animator.SetFloat("TurnInput", 0f);
+                m_animator.SetFloat("MovementInput", m_currentSpeed / m_movementSpeed);
                 break;
             case BossState.Idle:
                 m_closing = false;
@@ -181,7 +190,44 @@ public class BossLogic : MonoBehaviour
     {
         if (m_characterController)
         {
-            m_characterController.Move(pos* m_movementSpeed*Time.deltaTime);
+            m_characterController.Move(pos * m_movementSpeed * Time.deltaTime);
         }
+    }
+
+    public void AttackStart(string attackType)
+    {
+        Debug.Log(attackType);
+        if (attackType == "SwipeAttack")
+        {
+            m_weapon.enabled = true;
+        }
+        else if (attackType == "StompAttack")
+        {
+            m_rightFoot.enabled = true;
+        }
+        else if (attackType == "JumpAttack")
+        {
+            m_weapon.enabled = true;
+            m_rightHand.enabled = true;
+        }
+        else if (attackType == "SlamAttack")
+        {
+            m_weapon.enabled = true;
+            m_rightHand.enabled = true;
+        }
+    }
+    public void AttackEnd(string attackType)
+    {
+        Debug.Log("End Attack");
+        m_weapon.enabled = false;
+        m_rightHand.enabled = false;
+        m_rightFoot.enabled = false;
+    }
+    public void AttackEnd()
+    {
+        Debug.Log("End Attack");
+        m_weapon.enabled = false;
+        m_rightHand.enabled = false;
+        m_rightFoot.enabled = false;
     }
 }
