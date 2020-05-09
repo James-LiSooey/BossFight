@@ -53,10 +53,11 @@ public class PlayerLogic : MonoBehaviour
             rolling = true;
         }
 
-        //if(animator) {
-        //    animator.SetFloat("HorizontalInput", horizontalInput);
-        //    animator.SetFloat("VerticalInput", verticalInput);
-        //}
+        if (animator)
+        {
+            animator.SetFloat("HorizontalInput", horizontalInput);
+            animator.SetFloat("VerticalInput", verticalInput);
+        }
     }
 
     private void FixedUpdate() {
@@ -87,9 +88,9 @@ public class PlayerLogic : MonoBehaviour
 		right.Normalize ();
 
 		desiredMoveDirection = forward * verticalInput + right * horizontalInput;
-
-        transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
         characterController.Move(desiredMoveDirection * Time.deltaTime * 3);
+        //transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
+        
 
         if(characterController.isGrounded) {
             heightMovement.y = 0.0f;

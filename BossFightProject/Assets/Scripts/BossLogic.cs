@@ -139,7 +139,6 @@ public class BossLogic : MonoBehaviour
             case BossState.Moving:
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(correctedDirection), 2F * Time.deltaTime);
 
-
                 if (m_distanceToTarget < 10 && m_currentSpeed > 2f && !m_closing)
                 {
                     m_closing = true;
@@ -150,7 +149,6 @@ public class BossLogic : MonoBehaviour
                 {
                     m_closing = false;
                 }
-
 
                 if (m_closing)
                 {
@@ -177,11 +175,6 @@ public class BossLogic : MonoBehaviour
                 m_animator.SetFloat("MovementInput", 0f);
                 break;
         }
-
-        
-
-        
-        
     }
 
     void MoveTowardsPoint(Vector3 pos)
