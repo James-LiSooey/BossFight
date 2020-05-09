@@ -405,7 +405,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 117927333}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2, y: 2.65, z: -8.139999}
+  m_LocalPosition: {x: -0.2, y: 2.153, z: -8.139999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1107785492}
@@ -480,7 +480,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 202732953}
-  m_LocalRotation: {x: 0.026334638, y: 0.18687868, z: -0.0050114943, w: 0.9820172}
+  m_LocalRotation: {x: 0.026370471, y: 0.17971425, z: -0.004819366, w: 0.98335356}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -597,8 +597,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336278035}
-  m_LocalRotation: {x: 0.026334647, y: 0.1868787, z: -0.0050115054, w: 0.9820172}
-  m_LocalPosition: {x: -0.2, y: 2.65, z: -8.139999}
+  m_LocalRotation: {x: 0.026370483, y: 0.17971426, z: -0.0048193773, w: 0.98335356}
+  m_LocalPosition: {x: -0.2, y: 2.153, z: -8.139999}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -923,7 +923,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 654595502}
-  m_LocalRotation: {x: -0.009354475, y: 0.18693738, z: 0.0017801678, w: 0.98232573}
+  m_LocalRotation: {x: -0.009367208, y: 0.1797707, z: 0.0017119216, w: 0.9836625}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -997,7 +997,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1107785490}
-  m_LocalRotation: {x: 0.026334636, y: 0.18687868, z: -0.005011496, w: 0.9820172}
+  m_LocalRotation: {x: 0.026370449, y: 0.1797142, z: -0.0048193624, w: 0.98335356}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1328,19 +1328,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Avatar
       value: 
-      objectReference: {fileID: 9000000, guid: b6ef2f4d0154b2747860a3332fa05f97, type: 3}
+      objectReference: {fileID: 9000000, guid: 19531f5a749cf9e499b8caaae5a084ae, type: 3}
     - target: {fileID: 2851332023611249825, guid: cf4b501428191304cb48a1854d7b9bfc,
         type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Root'\n\tTransform 'IndexFinger_02'\n\tTransform
-        'Elbow_R'\n\tTransform 'Finger_02'\n\tTransform 'Finger_03'\n\tTransform
-        'Ball_L'\n\tTransform 'Thumb_02'\n\tTransform 'Ball_R'\n\tTransform 'Clavicle_L'\n\tTransform
-        'Finger_01'\n\tand more ...\n\tFrom animation clip 'Idle'\n\tFrom animation
-        clip 'Walking'\n\tFrom animation clip 'Running'\n\tFrom animation clip 'Walk
-        Strafe Left'\n\tFrom animation clip 'Walk Strafe Right'\n\tFrom animation
-        clip 'Walk Backwards'"
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2851332023620722961, guid: cf4b501428191304cb48a1854d7b9bfc,
         type: 3}
@@ -1355,7 +1347,7 @@ PrefabInstance:
     - target: {fileID: 2851332023620948603, guid: cf4b501428191304cb48a1854d7b9bfc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.06
+      value: 0.563
       objectReference: {fileID: 0}
     - target: {fileID: 2851332023620948603, guid: cf4b501428191304cb48a1854d7b9bfc,
         type: 3}
