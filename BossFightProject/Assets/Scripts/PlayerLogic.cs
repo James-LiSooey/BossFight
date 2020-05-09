@@ -97,7 +97,7 @@ public class PlayerLogic : MonoBehaviour
         }
     }
 
-    public void SetRollingState(bool isRolling) {
-        rolling = isRolling;    
+    public void SetRollingState(bool isRolling) {    
+        rolling = isRolling;
     }
 }
