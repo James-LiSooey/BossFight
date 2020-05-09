@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 1e691b3207b703c42948df70c79c51b5
+guid: 22d14c52b0fa0a743947c5284c186d3c
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Walk Backwards
+    second: Standing Walk Forward
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -26,7 +26,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Walk Backwards
+      name: Standing Walk Forward
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 232
+      lastFrame: 79
       wrapMode: 0
       orientationOffsetY: 0
       level: 0

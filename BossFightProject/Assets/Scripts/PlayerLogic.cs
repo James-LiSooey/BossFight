@@ -27,6 +27,8 @@ public class PlayerLogic : MonoBehaviour
     float magnitude;
     Vector3 desiredMoveDirection;
 
+    bool rolling = false;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -45,14 +47,16 @@ public class PlayerLogic : MonoBehaviour
 
         movementInput = new Vector3(horizontalInput, 0, verticalInput);
 
-        if(Input.GetButtonDown("Jump") && characterController.isGrounded) {
+        if(Input.GetButtonDown("Jump")) {
             jump = true;
+            animator.SetTrigger("Roll");
+            rolling = true;
         }
 
-        if(animator) {
-            animator.SetFloat("HorizontalInput", horizontalInput);
-            animator.SetFloat("VerticalInput", verticalInput);
-        }
+        //if(animator) {
+        //    animator.SetFloat("HorizontalInput", horizontalInput);
+        //    animator.SetFloat("VerticalInput", verticalInput);
+        //}
     }
 
     private void FixedUpdate() {
@@ -90,5 +94,9 @@ public class PlayerLogic : MonoBehaviour
         if(characterController.isGrounded) {
             heightMovement.y = 0.0f;
         }
+    }
+
+    public void SetRollingState(bool isRolling) {
+        rolling = isRolling;    
     }
 }
