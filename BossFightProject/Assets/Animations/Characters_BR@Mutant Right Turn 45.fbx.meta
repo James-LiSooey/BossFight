@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 887b50860ae2f834fbdce1305fb5e708
+guid: 868200ea6758090419502254e8982849
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Jump Attack
+    second: Mutant Right Turn 45
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,25 +35,25 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jump Attack
+      name: Mutant Right Turn 45
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 219
+      lastFrame: 93
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 1
-      loopBlendPositionY: 1
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
       loopBlendPositionXZ: 0
       keepOriginalOrientation: 0
-      keepOriginalPositionY: 0
-      keepOriginalPositionXZ: 1
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
       heightFromFeet: 0
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000

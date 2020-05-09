@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 887b50860ae2f834fbdce1305fb5e708
+guid: 352714b064e4a3d41a594a824eac4170
 ModelImporter:
   serializedVersion: 19300
   internalIDToNameTable:
   - first:
       74: -203655887218126122
-    second: Jump Attack
+    second: Two Hand Slam
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Jump Attack
+      name: Two Hand Slam
       takeName: mixamo.com
       internalID: 0
       firstFrame: 0
-      lastFrame: 219
+      lastFrame: 293
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -48,9 +48,9 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 1
+      loopBlendOrientation: 0
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 0
       keepOriginalPositionXZ: 1
