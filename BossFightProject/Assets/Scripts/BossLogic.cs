@@ -79,7 +79,6 @@ public class BossLogic : MonoBehaviour
 
         if(angleDifference > m_turnAngle)
         {
-            
             m_bossState = BossState.Turning;
         }
         else if (m_distanceToTarget > 3)
