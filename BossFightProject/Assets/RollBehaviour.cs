@@ -22,7 +22,7 @@ public class RollBehaviour : StateMachineBehaviour
         PlayerLogic playerLogic = animator.GetComponent<PlayerLogic>();
         if(playerLogic) {
             playerLogic.SetRollingState(false);
-        }
+        }    
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

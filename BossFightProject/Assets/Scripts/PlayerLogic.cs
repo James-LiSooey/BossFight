@@ -42,13 +42,30 @@ public class PlayerLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        if(rolling) {
+            return;
+        }
+
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
 
         movementInput = new Vector3(horizontalInput, 0, verticalInput);
 
+        var forward = camera.transform.forward;
+		var right = camera.transform.right;
+
+		forward.y = 0f;
+		right.y = 0f;
+
+		forward.Normalize ();
+		right.Normalize ();
+
+		desiredMoveDirection = forward * verticalInput + right * horizontalInput;
+
         if(Input.GetButtonDown("Jump")) {
-            jump = true;
+            //Quaternion wantedRotation = Quaternion.LookRotation(movementInput);
+            transform.rotation = Quaternion.LookRotation(desiredMoveDirection);
             animator.SetTrigger("Roll");
             rolling = true;
         }
@@ -61,9 +78,8 @@ public class PlayerLogic : MonoBehaviour
     }
 
     private void FixedUpdate() {
-        if(jump) {
-            heightMovement.y = jumpHeight;
-            jump = false;
+        if(rolling) {
+            return;
         }
 
         if(Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f) {
