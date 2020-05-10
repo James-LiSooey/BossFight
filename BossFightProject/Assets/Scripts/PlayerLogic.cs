@@ -11,7 +11,8 @@ public class PlayerLogic : MonoBehaviour
     float verticalInput;
 
     Vector3 movementInput;
-    float movementSpeed = 4.0f;
+    [SerializeField]
+    float movementSpeed = 3.0f;
 
     bool jump = false;
     float jumpHeight = 0.25f;
@@ -35,7 +36,7 @@ public class PlayerLogic : MonoBehaviour
     Rigidbody weaponRb;
     WeaponLogic weaponLogic;
     float returnTime;
-    
+
     Vector3 origLocPos;
     Vector3 origLocRot;
     Vector3 pullPosition;
@@ -48,8 +49,10 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField]
     Transform curvePoint;
 
+    [SerializeField]
     float throwPower = 90f;
-    float cameraZoomOffset = -2f;
+    [SerializeField]
+    float cameraZoomOffset = 2f;
 
     bool walking = true;
     bool aiming = false;
@@ -62,7 +65,7 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField]
     CinemachineFreeLook virtualCamera;
     CinemachineImpulseSource impulseSource;
-    
+
 
     // Start is called before the first frame update
     void Start()
@@ -84,33 +87,39 @@ public class PlayerLogic : MonoBehaviour
     void Update()
     {
 
-        if(rolling) {
+        if (rolling)
+        {
             return;
         }
 
         animator.SetBool("Pulling", pulling);
 
-        if(Input.GetButtonDown("Fire2") && hasWeapon) {
+        if (Input.GetButtonDown("Fire2") && hasWeapon)
+        {
             Aim(true, true, 0);
         }
-        
-        if(Input.GetButtonUp("Fire2") && hasWeapon) {
+
+        if (Input.GetButtonUp("Fire2") && hasWeapon)
+        {
             Aim(false, true, 0);
         }
 
-        if(hasWeapon) {
-            if(aiming && Input.GetButtonDown("Fire1")) {
+        if (hasWeapon)
+        {
+            if (aiming && Input.GetButtonDown("Fire1"))
+            {
                 animator.SetTrigger("Throw");
             }
-        } else {
-            if(Input.GetButtonDown("Fire1")) {
+        }
+        else
+        {
+            if (Input.GetButtonDown("Fire1"))
+            {
                 WeaponStartPull();
             }
         }
 
-        if(aiming) {
-            return;
-        }
+
 
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
@@ -118,18 +127,23 @@ public class PlayerLogic : MonoBehaviour
         movementInput = new Vector3(horizontalInput, 0, verticalInput);
 
         var forward = camera.transform.forward;
-		var right = camera.transform.right;
+        var right = camera.transform.right;
 
-		forward.y = 0f;
-		right.y = 0f;
+        forward.y = 0f;
+        right.y = 0f;
 
-		forward.Normalize ();
-		right.Normalize ();
+        forward.Normalize();
+        right.Normalize();
 
-		desiredMoveDirection = forward * verticalInput + right * horizontalInput;
+        desiredMoveDirection = forward * verticalInput + right * horizontalInput;
 
-        if(Input.GetButtonDown("Jump")) {
-            //Quaternion wantedRotation = Quaternion.LookRotation(movementInput);
+        if (aiming)
+        {
+            return;
+        }
+
+        if (Input.GetButtonDown("Jump"))
+        {
             transform.rotation = Quaternion.LookRotation(desiredMoveDirection);
             animator.SetTrigger("Roll");
             rolling = true;
@@ -143,7 +157,7 @@ public class PlayerLogic : MonoBehaviour
 
         if (pulling)
         {
-            if(returnTime < 1)
+            if (returnTime < 1)
             {
                 weapon.position = GetQuadraticCurvePoint(returnTime, pullPosition, curvePoint.position, hand.position);
                 returnTime += Time.deltaTime * 1.5f;
@@ -155,37 +169,42 @@ public class PlayerLogic : MonoBehaviour
         }
     }
 
-    private void FixedUpdate() {
-        if(rolling) {
+    private void FixedUpdate()
+    {
+
+        if (rolling)
+        {
             return;
         }
 
-        if(Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f) {
+        if (aiming)
+        {
             transform.forward = camera.transform.forward;
+            return;
+        }
+        else
+        {
+            if (Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f)
+            {
+                transform.forward = camera.transform.forward;
+            }
         }
 
-        //verticalMovement = transform.forward * verticalInput * movementSpeed * Time.deltaTime;
-        //horizontalMovement = transform.right * horizontalInput * movementSpeed * Time.deltaTime;
+        var forward = camera.transform.forward;
+        var right = camera.transform.right;
 
-        //characterController.Move(horizontalMovement + verticalMovement + heightMovement);
+        forward.y = 0f;
+        right.y = 0f;
 
-        if(!aiming) {
-            var forward = camera.transform.forward;
-            var right = camera.transform.right;
+        forward.Normalize();
+        right.Normalize();
 
-            forward.y = 0f;
-            right.y = 0f;
-
-            forward.Normalize ();
-            right.Normalize ();
-
-            desiredMoveDirection = forward * verticalInput + right * horizontalInput;
-            characterController.Move(desiredMoveDirection * Time.deltaTime * 3);
-            //transform.rotation = Quaternion.Slerp (transform.rotation, Quaternion.LookRotation (desiredMoveDirection), desiredRotationSpeed);
-        }
+        desiredMoveDirection = forward * verticalInput + right * horizontalInput;
+        characterController.Move(desiredMoveDirection * Time.deltaTime * movementSpeed);
     }
 
-    public void SetRollingState(bool isRolling) {    
+    public void SetRollingState(bool isRolling)
+    {
         rolling = isRolling;
     }
 
@@ -199,30 +218,26 @@ public class PlayerLogic : MonoBehaviour
         t.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), desiredRotationSpeed);
     }
 
-    void Aim(bool state, bool changeCamera, float delay) {
+    void Aim(bool state, bool changeCamera, float delay)
+    {
         aiming = state;
         animator.SetBool("Aiming", aiming);
 
         float fade = state ? 1 : 0;
         reticle.DOFade(fade, 0.2f);
 
-        if(!changeCamera) {
+        if (!changeCamera)
+        {
             return;
         }
 
         float newAim = state ? cameraZoomOffset : 0;
         float originalAim = !state ? cameraZoomOffset : 0;
-        DOVirtual.Float(originalAim, newAim, 0.5f, CameraOffset).SetDelay(delay);
-
-        //Particle handler
-        //if(state) {
-        //    glowParticle.Play();
-        //} else {
-        //    glowParticle.Stop();
-        //}
+       // DOVirtual.Float(originalAim, newAim, 0.1f, CameraOffset).SetDelay(delay);
     }
 
-    public void WeaponThrow() {
+    public void WeaponThrow()
+    {
         Aim(false, true, 1f);
 
         hasWeapon = false;
@@ -231,14 +246,13 @@ public class PlayerLogic : MonoBehaviour
         weaponRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         weapon.parent = null;
         //weapon.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
-        weapon.transform.position += transform.right/5;
+        weapon.transform.position += transform.right / 5;
         weaponRb.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
-        //Trail
-        //trailRenderer.emitting = true;
-        //trailParticle.Play();
+
     }
 
-    public void WeaponStartPull() {
+    public void WeaponStartPull()
+    {
         pullPosition = weapon.position;
         weaponRb.Sleep();
         weaponRb.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
@@ -249,7 +263,8 @@ public class PlayerLogic : MonoBehaviour
         pulling = true;
     }
 
-    public void WeaponCatch() {
+    public void WeaponCatch()
+    {
         returnTime = 0;
         pulling = false;
         weapon.parent = hand;
@@ -257,11 +272,6 @@ public class PlayerLogic : MonoBehaviour
         weapon.localEulerAngles = origLocRot;
         weapon.localPosition = origLocPos;
         hasWeapon = true;
-
-        //Particle and trail
-        //catchParticle.Play();
-        //trailRenderer.emitting = false;
-        //trailParticle.Stop();
 
         //Shake
         virtualCamera.GetComponent<CinemachineImpulseSource>().GenerateImpulse(Vector3.right);
@@ -278,7 +288,7 @@ public class PlayerLogic : MonoBehaviour
     void CameraOffset(float offset)
     {
         //virtualCamera.GetRig(0).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
-        //virtualCamera.GetRig(1).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
-        //virtualCamera.GetRig(2).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
+     //virtualCamera.GetRig(1).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
+     //   virtualCamera.GetRig(2).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
     }
 }

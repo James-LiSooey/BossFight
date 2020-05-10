@@ -13,17 +13,19 @@ enum BossState
 }
 enum BossAttackState
 {
-    NoAttack,
-    JumpAttack,
-    SwipeAttack,
-    SlamAttack,
-    KickAttack
+    Jump,
+    Swipe,
+    Slam,
+    Stomp,
+    ready,
+    notReady,
 }
+
 
 public class BossLogic : MonoBehaviour
 {
     BossState m_bossState = BossState.Idle;
-    BossAttackState bossAttackState = BossAttackState.NoAttack;
+    BossAttackState bossAttackState = BossAttackState.notReady;
     CharacterController m_characterController;
     Animator m_animator;
     GameObject m_player;
@@ -51,6 +53,10 @@ public class BossLogic : MonoBehaviour
     [SerializeField]
     Collider m_rightFoot;
 
+    const float MAXATTACKTIME = 5f;
+    public float m_attackTimer = MAXATTACKTIME;
+
+
     void Start()
     {
         m_player = GameObject.FindGameObjectWithTag("Player");
@@ -59,8 +65,17 @@ public class BossLogic : MonoBehaviour
         m_movementTarget = transform.position;
     }
 
-    void Update()
+      private void FixedUpdate()
     {
+        if (m_attackTimer > 0  && bossAttackState == BossAttackState.notReady)
+        {
+            m_attackTimer -= Time.deltaTime;
+        }
+        else
+        {
+            bossAttackState = BossAttackState.ready;
+        }
+
         m_movementTarget = m_player.transform.position;
 
         var heading = m_movementTarget - transform.position;
@@ -72,12 +87,35 @@ public class BossLogic : MonoBehaviour
         m_distanceToTarget = Vector3.Distance(m_movementTarget, transform.position);
         var angleDifference = Quaternion.Angle(transform.rotation, Quaternion.LookRotation(correctedDirection));
 
-        var newLookAt = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(correctedDirection), 2.0F * Time.deltaTime);
 
+        if(bossAttackState == BossAttackState.ready)
+        {
+            if (m_distanceToTarget < 8) {
+                
+                m_bossState = BossState.Attacking;
 
-        //Debug.Log("Angle difference: " + angleDifference);
-        //Debug.Log("m_Weapon enabled? " + m_Weapon.enabled);
-
+                if (m_distanceToTarget > 6)
+                {
+                    bossAttackState = BossAttackState.Jump;
+                    BossTriggerAttack(correctedDirection,"JumpAttack");
+                }
+                else if(m_distanceToTarget < 3)
+                {
+                    bossAttackState = BossAttackState.Stomp;
+                    BossTriggerAttack(correctedDirection, "StompAttack");
+                }
+                else if (angleDifference > m_turnAngle)
+                {
+                    bossAttackState = BossAttackState.Swipe;
+                    BossTriggerAttack(correctedDirection, "SwipeAttack");
+                }
+                else
+                {
+                    bossAttackState = BossAttackState.Slam;
+                    BossTriggerAttack(correctedDirection, "SlamAttack");
+                }
+            }
+        }
 
         if (!m_characterController.isGrounded)
         {
@@ -88,11 +126,9 @@ public class BossLogic : MonoBehaviour
             m_heightMovement.y = 0;
         }
 
-
-
         if (m_bossState == BossState.Moving)
         {
-            if (m_distanceToTarget > 3)
+            if (m_distanceToTarget > 4)
             {
                 m_bossState = BossState.Moving;
             }
@@ -107,7 +143,7 @@ public class BossLogic : MonoBehaviour
             {
                 m_bossState = BossState.Turning;
             }
-            else if (m_distanceToTarget > 4.5)
+            else if (m_distanceToTarget > 5)
             {
                 m_bossState = BossState.Moving;
             }
@@ -122,7 +158,7 @@ public class BossLogic : MonoBehaviour
             case BossState.Turning:
                 var currentAngle = transform.rotation.eulerAngles.y;
 
-                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(correctedDirection), 1.2F * Time.deltaTime);
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(correctedDirection), 1.5F * Time.deltaTime);
                 var newAngle = transform.rotation.eulerAngles.y;
 
                 if (currentAngle < 90 && newAngle > 270)
@@ -145,39 +181,32 @@ public class BossLogic : MonoBehaviour
                 m_animator.SetFloat("MovementInput", 0f);
                 m_currentSpeed = 0;
                 break;
+
             case BossState.Moving:
+                m_currentSpeed = Mathf.Lerp(m_currentSpeed, m_movementSpeed, m_acceleration);
+                Vector3 movementVector = new Vector3(direction.x * m_currentSpeed * Time.deltaTime, m_heightMovement.y, direction.z * m_currentSpeed * Time.deltaTime);
+               
+                m_characterController.Move(movementVector);
                 transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(correctedDirection), 2F * Time.deltaTime);
 
-                if (m_distanceToTarget < 10 && m_currentSpeed > 2f && !m_closing)
-                {
-                    m_closing = true;
-                    m_closingDistance = m_distanceToTarget;
-                }
-
-                if (m_distanceToTarget >= 10)
-                {
-                    m_closing = false;
-                }
-
-                if (m_closing)
-                {
-                    m_currentSpeed = Mathf.Lerp(m_currentSpeed, .5f, .003f);
-                }
-                else
-                {
-                    m_currentSpeed = Mathf.Lerp(m_currentSpeed, m_movementSpeed, m_acceleration);
-                }
-                Vector3 movementVector = new Vector3(direction.x * m_currentSpeed * Time.deltaTime, m_heightMovement.y, direction.z * m_currentSpeed * Time.deltaTime);
-                m_characterController.Move(movementVector);
                 m_animator.SetFloat("TurnInput", 0f);
                 m_animator.SetFloat("MovementInput", m_currentSpeed / m_movementSpeed);
                 break;
+
             case BossState.Idle:
                 m_closing = false;
                 m_currentSpeed = 0;
                 m_animator.SetFloat("TurnInput", 0f);
                 m_animator.SetFloat("MovementInput", 0f);
                 break;
+
+            case BossState.Attacking:
+                m_closing = false;
+                m_currentSpeed = 0;
+                m_animator.SetFloat("TurnInput", 0f);
+                m_animator.SetFloat("MovementInput", 0f);
+                break;
+
             default:
                 m_currentSpeed = 0;
                 m_animator.SetFloat("TurnInput", 0f);
@@ -186,12 +215,19 @@ public class BossLogic : MonoBehaviour
         }
     }
 
-    void MoveTowardsPoint(Vector3 pos)
+    public void AttackAnimationEnd()
     {
-        if (m_characterController)
-        {
-            m_characterController.Move(pos * m_movementSpeed * Time.deltaTime);
-        }
+        bossAttackState = BossAttackState.notReady;
+        m_bossState = BossState.Idle;
+        m_attackTimer = MAXATTACKTIME;
+    }
+
+    public void BossTriggerAttack(Vector3 attackDirection, string attackType)
+    {
+        m_bossState = BossState.Attacking;
+        bossAttackState = BossAttackState.notReady;
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(attackDirection), 2F * Time.deltaTime);
+        m_animator.SetTrigger(attackType);
     }
 
     public void AttackStart(string attackType)
