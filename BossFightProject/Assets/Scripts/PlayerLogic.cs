@@ -60,7 +60,7 @@ public class PlayerLogic : MonoBehaviour
     public Image reticle;
 
     [SerializeField]
-    //CinemachineFreeLook virtualCamera;
+    CinemachineFreeLook virtualCamera;
     CinemachineImpulseSource impulseSource;
     
 
@@ -161,7 +161,6 @@ public class PlayerLogic : MonoBehaviour
         }
 
         if(Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f) {
-            //transform.forward = cameraLogic.GetForwardVector();
             transform.forward = camera.transform.forward;
         }
 
@@ -231,7 +230,7 @@ public class PlayerLogic : MonoBehaviour
         weaponRb.isKinematic = false;
         weaponRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         weapon.parent = null;
-        weapon.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
+        //weapon.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
         weapon.transform.position += transform.right/5;
         weaponRb.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
         //Trail
@@ -265,7 +264,7 @@ public class PlayerLogic : MonoBehaviour
         //trailParticle.Stop();
 
         //Shake
-        impulseSource.GenerateImpulse(Vector3.right);
+        virtualCamera.GetComponent<CinemachineImpulseSource>().GenerateImpulse(Vector3.right);
     }
 
     public Vector3 GetQuadraticCurvePoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)

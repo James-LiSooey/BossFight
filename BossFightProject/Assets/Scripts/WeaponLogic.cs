@@ -11,7 +11,7 @@ public class WeaponLogic : MonoBehaviour
     {
         if (activated)
         {
-            transform.localEulerAngles += Vector3.right * rotationSpeed * Time.deltaTime;
+            transform.Rotate(Vector3.right * rotationSpeed * Time.deltaTime);
         }
     }
 
