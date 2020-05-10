@@ -5,6 +5,12 @@ using DG.Tweening;
 using UnityEngine.UI;
 using Cinemachine;
 
+public enum AttackType {
+    Regular,
+    Strong,
+    Jump
+}
+
 public class PlayerLogic : MonoBehaviour
 {
     float horizontalInput;
@@ -59,13 +65,18 @@ public class PlayerLogic : MonoBehaviour
     bool hasWeapon = true;
     bool pulling = false;
 
+    bool attacking = false;
+    public bool attackCombo = false;
+
+    AttackType attackType;
+
     [SerializeField]
     public Image reticle;
 
     [SerializeField]
     CinemachineFreeLook virtualCamera;
     CinemachineImpulseSource impulseSource;
-
+    
 
     // Start is called before the first frame update
     void Start()
@@ -86,9 +97,16 @@ public class PlayerLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        Debug.Log("AttackCombo: " + attackCombo);
         if (rolling)
         {
+            return;
+        }
+
+        if(attacking) {
+            if(!attackCombo && ((attackType == AttackType.Regular && Input.GetButtonDown("RegularAttack")) || (attackType == AttackType.Strong && Input.GetButtonDown("StrongAttack")))) {
+                attackCombo = true;
+            }
             return;
         }
 
@@ -109,6 +127,24 @@ public class PlayerLogic : MonoBehaviour
             if (aiming && Input.GetButtonDown("Fire1"))
             {
                 animator.SetTrigger("Throw");
+            }
+
+            if(Input.GetButtonDown("RegularAttack")) {
+                animator.SetTrigger("RegularAttack1");
+                attackType = AttackType.Regular;
+                attacking = true;
+            }
+
+            if(Input.GetButtonDown("StrongAttack")) {
+                animator.SetTrigger("StrongAttack1");
+                attackType = AttackType.Strong;
+                attacking = true;
+            }
+
+            if(Input.GetButtonDown("JumpAttack")) {
+                animator.SetTrigger("JumpAttack");
+                attackType = AttackType.Jump;
+                attacking = true;
             }
         }
         else
@@ -172,7 +208,7 @@ public class PlayerLogic : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (rolling)
+        if (rolling || attacking)
         {
             return;
         }
@@ -206,6 +242,12 @@ public class PlayerLogic : MonoBehaviour
     public void SetRollingState(bool isRolling)
     {
         rolling = isRolling;
+    }
+
+    public void SetAttackingState(bool isAttacking)
+    {
+        attacking = isAttacking;
+        attackCombo = false;
     }
 
     public void RotateToCamera(Transform t)
