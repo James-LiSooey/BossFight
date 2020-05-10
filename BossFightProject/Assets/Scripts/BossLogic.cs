@@ -71,7 +71,7 @@ public class BossLogic : MonoBehaviour
         {
             m_attackTimer -= Time.deltaTime;
         }
-        else
+        else if(m_attackTimer <= 0 && bossAttackState == BossAttackState.notReady)
         {
             bossAttackState = BossAttackState.ready;
         }
@@ -90,7 +90,7 @@ public class BossLogic : MonoBehaviour
 
         if(bossAttackState == BossAttackState.ready)
         {
-            if (m_distanceToTarget < 8) {
+            if (m_distanceToTarget < 10) {
                 
                 m_bossState = BossState.Attacking;
 
@@ -99,7 +99,7 @@ public class BossLogic : MonoBehaviour
                     bossAttackState = BossAttackState.Jump;
                     BossTriggerAttack(correctedDirection,"JumpAttack");
                 }
-                else if(m_distanceToTarget < 3)
+                else if(m_distanceToTarget < 2)
                 {
                     bossAttackState = BossAttackState.Stomp;
                     BossTriggerAttack(correctedDirection, "StompAttack");
@@ -225,7 +225,6 @@ public class BossLogic : MonoBehaviour
     public void BossTriggerAttack(Vector3 attackDirection, string attackType)
     {
         m_bossState = BossState.Attacking;
-        bossAttackState = BossAttackState.notReady;
         transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(attackDirection), 2F * Time.deltaTime);
         m_animator.SetTrigger(attackType);
     }
