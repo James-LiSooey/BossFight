@@ -23,9 +23,10 @@ public class ThrowLogic : MonoBehaviour
     [SerializeField]
     Transform hand;
     Transform spine;
+    [SerializeField]
     Transform curvePoint;
 
-    float throwPower = 30f;
+    float throwPower = 90f;
     float cameraZoomOffset = -2f;
 
     bool walking = true;
@@ -47,7 +48,7 @@ public class ThrowLogic : MonoBehaviour
         animator = GetComponent<Animator>();
         playerLogic = GetComponent<PlayerLogic>();
         weaponRb = weapon.GetComponent<Rigidbody>();
-        weaponLogic = GetComponent<WeaponLogic>();
+        weaponLogic = weapon.GetComponent<WeaponLogic>();
         origLocPos = weapon.localPosition;
         origLocRot = weapon.localEulerAngles;
         reticle.DOFade(0, 0);
@@ -126,13 +127,10 @@ public class ThrowLogic : MonoBehaviour
         weaponLogic.activated = true;
         weaponRb.isKinematic = false;
         weaponRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
-        //weapon.parent = null;
-        weaponRb.transform.parent = null;
+        weapon.parent = null;
         weapon.eulerAngles = new Vector3(0, -90 +transform.eulerAngles.y, 0);
         weapon.transform.position += transform.right/5;
-        //weaponRb.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
-        weaponRb.AddForce(transform.forward * throwPower, ForceMode.Impulse);
-
+        weaponRb.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
         //Trail
         //trailRenderer.emitting = true;
         //trailParticle.Play();
@@ -177,7 +175,6 @@ public class ThrowLogic : MonoBehaviour
 
     void CameraOffset(float offset)
     {
-        Debug.Log("CameraOffset: " + offset);
         virtualCamera.GetRig(0).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
         virtualCamera.GetRig(1).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
         virtualCamera.GetRig(2).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
