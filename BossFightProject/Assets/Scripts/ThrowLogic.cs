@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
@@ -58,7 +57,7 @@ public class ThrowLogic : MonoBehaviour
     void Update()
     {
         if(aiming) {
-            playerLogic.RotateToCamera(transform);
+            //playerLogic.RotateToCamera(transform);
         } else {
             transform.eulerAngles = new Vector3(Mathf.LerpAngle(transform.eulerAngles.x, 0, 0.2f), transform.eulerAngles.y, transform.eulerAngles.z);
         }
@@ -128,7 +127,8 @@ public class ThrowLogic : MonoBehaviour
         weaponRb.isKinematic = false;
         weaponRb.collisionDetectionMode = CollisionDetectionMode.Continuous;
         weapon.parent = null;
-        weapon.eulerAngles = new Vector3(0, -90 +transform.eulerAngles.y, 0);
+        //weapon.eulerAngles = new Vector3(0, -90 +transform.eulerAngles.y, 0);
+        weapon.eulerAngles = new Vector3(0, -90 + transform.eulerAngles.y, 0);
         weapon.transform.position += transform.right/5;
         weaponRb.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
         //Trail
