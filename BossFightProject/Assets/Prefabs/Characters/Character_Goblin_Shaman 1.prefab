@@ -4520,10 +4520,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8110514a680f13d4ebb0e999b08249dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FootstepEarthSounds: []
-  m_FootstepGrassSounds: []
-  m_LeftFoot: {fileID: 0}
-  m_RightFoot: {fileID: 0}
 --- !u!1 &2851332023620723419
 GameObject:
   m_ObjectHideFlags: 0

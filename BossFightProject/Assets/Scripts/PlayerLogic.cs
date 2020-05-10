@@ -116,4 +116,14 @@ public class PlayerLogic : MonoBehaviour
     public void SetRollingState(bool isRolling) {    
         rolling = isRolling;
     }
+
+    public void RotateToCamera(Transform t)
+    {
+        var forward = camera.transform.forward;
+        var right = camera.transform.right;
+
+        desiredMoveDirection = forward;
+
+        t.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(desiredMoveDirection), desiredRotationSpeed);
+    }
 }
