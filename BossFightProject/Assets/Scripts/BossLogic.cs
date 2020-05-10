@@ -99,7 +99,7 @@ public class BossLogic : MonoBehaviour
                     bossAttackState = BossAttackState.Jump;
                     BossTriggerAttack(correctedDirection,"JumpAttack");
                 }
-                else if(m_distanceToTarget < 2)
+                else if(m_distanceToTarget < 3.5)
                 {
                     bossAttackState = BossAttackState.Stomp;
                     BossTriggerAttack(correctedDirection, "StompAttack");
