@@ -97,7 +97,6 @@ public class PlayerLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("AttackCombo: " + attackCombo);
         if (rolling)
         {
             return;

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Boss
+  - Breakable
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - 
   - Weapon
   - Ground
-  - 
-  - 
+  - Walls
+  - Environment Obstacles
   - 
   - 
   - 
