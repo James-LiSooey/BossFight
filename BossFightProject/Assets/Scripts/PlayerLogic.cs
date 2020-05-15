@@ -65,10 +65,10 @@ public class PlayerLogic : MonoBehaviour
     bool hasWeapon = true;
     bool pulling = false;
 
-    bool attacking = false;
+    public bool attacking = false;
     public bool attackCombo = false;
 
-    AttackType attackType;
+    public AttackType attackType;
 
     [SerializeField]
     public Image reticle;

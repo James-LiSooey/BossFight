@@ -6,7 +6,19 @@ public class WeaponLogic : MonoBehaviour
 {
     public bool activated;
     public float rotationSpeed;
+
+    GameObject player;
+    GameObject boss;
+    PlayerLogic playerLogic;
+    BossLogic bossLogic;
     
+    private void Start() {
+        player = GameObject.FindGameObjectWithTag("Player");
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        playerLogic = player.GetComponent<PlayerLogic>();
+        bossLogic = boss.GetComponent<BossLogic>();
+    }
+
     void Update()
     {
         if (activated)
@@ -38,6 +50,18 @@ public class WeaponLogic : MonoBehaviour
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             GetComponent<Rigidbody>().isKinematic = true;
             activated = false;
+        }
+
+        if(other.tag == "Boss") {
+            if(bossLogic) {
+                 if(playerLogic.attackType == playerLogic.AttackType.Regular) {
+                     bossLogic.TakeDamage(10);
+                 } else if (playerLogic.attackType == playerLogic.AttackType.Strong) {
+                     bossLogic.TakeDamage(20);
+                 } else if(playerLogic.attackType == playerLogic.AttackType.Jump) {
+                    bossLogic.TakeDamage(50);
+                }
+            }
         }
     }
 

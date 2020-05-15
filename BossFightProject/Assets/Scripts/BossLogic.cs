@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
+using UnityEngine.UI;
 
 enum BossState
 {
@@ -56,9 +57,15 @@ public class BossLogic : MonoBehaviour
     const float MAXATTACKTIME = 5f;
     public float m_attackTimer = MAXATTACKTIME;
 
+    int health = 100;
+
+    [SerializeField]
+    Text bossHealthText;
+
 
     void Start()
     {
+        SetHealth();
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_characterController = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
@@ -265,4 +272,16 @@ public class BossLogic : MonoBehaviour
         m_rightHand.enabled = false;
         m_rightFoot.enabled = false;
     }
+
+    public void TakeDamage(int damage) {
+        health -= damage;
+        SetHealth();
+    }
+
+    public void SetHealth() {
+        if(bossHealthText) {
+            bossHealthText.text = "Health: " + health;
+        }
+    }
+
 }
