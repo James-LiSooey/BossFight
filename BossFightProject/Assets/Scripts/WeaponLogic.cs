@@ -41,7 +41,7 @@ public class WeaponLogic : MonoBehaviour
     // }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("Layer: " + other.gameObject.layer);
+        //Debug.Log("Layer: " + other.gameObject.layer);
 
         if (other.gameObject.layer == 9 || other.gameObject.layer == 10 || other.gameObject.layer == 11)
         {
@@ -53,13 +53,16 @@ public class WeaponLogic : MonoBehaviour
         }
 
         if(other.tag == "Boss") {
-            if(bossLogic) {
-                 if(playerLogic.attackType == playerLogic.AttackType.Regular) {
-                     bossLogic.TakeDamage(10);
-                 } else if (playerLogic.attackType == playerLogic.AttackType.Strong) {
-                     bossLogic.TakeDamage(20);
-                 } else if(playerLogic.attackType == playerLogic.AttackType.Jump) {
+            Debug.Log("AttackType: " + playerLogic.attackType);
+             if(bossLogic) {
+                if(playerLogic.attacking) {
+                    if(playerLogic.attackType.ToString() == "Regular") {
+                        bossLogic.TakeDamage(10);
+                    } else if (playerLogic.attackType.ToString() == "Strong") {
+                        bossLogic.TakeDamage(20);
+                    } else if(playerLogic.attackType.ToString() == "Jump") {
                     bossLogic.TakeDamage(50);
+                    }
                 }
             }
         }
