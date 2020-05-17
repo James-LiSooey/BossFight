@@ -4530,12 +4530,14 @@ MonoBehaviour:
   cameraZoomOffset: 2
   attacking: 0
   attackCombo: 0
+  comboListener: 0
   attackType: 0
   reticle: {fileID: 0}
   virtualCamera: {fileID: 0}
   dealDamage: 0
   slider: {fileID: 0}
   endGameText: {fileID: 0}
+  endGameMenu: {fileID: 0}
 --- !u!1 &2851332023620723419
 GameObject:
   m_ObjectHideFlags: 0

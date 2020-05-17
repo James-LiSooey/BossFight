@@ -90,6 +90,9 @@ public class PlayerLogic : MonoBehaviour
 
     [SerializeField]
     Text endGameText;
+    
+    [SerializeField]
+    GameObject endGameMenu;
 
     // Start is called before the first frame update
     void Start()
@@ -289,6 +292,7 @@ public class PlayerLogic : MonoBehaviour
             animator.SetTrigger("Die");
             characterController.enabled = false;
             SetEndGameText();
+            endGameMenu.SetActive(true);
         }
     }
 
@@ -307,6 +311,7 @@ public class PlayerLogic : MonoBehaviour
 
     public void SetEndGameText() {
         endGameText.text = "You lose.";
+
     }
 
     public void RotateToCamera(Transform t)

@@ -71,6 +71,9 @@ public class BossLogic : MonoBehaviour
     [SerializeField]
     Text endGameText;
 
+    [SerializeField]
+    GameObject endGameMenu;
+
     void Start()
     {
         SetSliderMaxHealth();
@@ -297,6 +300,7 @@ public class BossLogic : MonoBehaviour
             m_animator.SetTrigger("Die");
             m_characterController.enabled = false;
             SetEndGameText();
+            endGameMenu.SetActive(true);
         }
     }
 
