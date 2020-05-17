@@ -286,6 +286,10 @@ public class BossLogic : MonoBehaviour
     }
 
     public void TakeDamage(int damage) {
+        if (health <= 0)
+        {
+            return;
+        }
         health -= damage;
         UpdateHealthSlider();
         if(health <= 0) {

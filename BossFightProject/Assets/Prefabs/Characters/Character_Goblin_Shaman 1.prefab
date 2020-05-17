@@ -4522,11 +4522,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8110514a680f13d4ebb0e999b08249dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weapon: {fileID: 0}
-  hand: {fileID: 0}
-  curvePoint: {fileID: 0}
+  movementSpeed: 3
+  weapon: {fileID: 8390488817278872889}
+  hand: {fileID: 2851332023620949761}
+  curvePoint: {fileID: 5277810676609778072}
+  throwPower: 120
+  cameraZoomOffset: 2
+  attacking: 0
+  attackCombo: 0
+  attackType: 0
   reticle: {fileID: 0}
-  impulseSource: {fileID: 0}
+  virtualCamera: {fileID: 0}
+  dealDamage: 0
+  slider: {fileID: 0}
+  endGameText: {fileID: 0}
 --- !u!1 &2851332023620723419
 GameObject:
   m_ObjectHideFlags: 0
@@ -4713,7 +4722,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3776598560960280892}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3.083, y: 1.769, z: 1.005}
+  m_LocalPosition: {x: 3.28, y: 1.681, z: 1.71}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2851332023620948603}
@@ -4736,7 +4745,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 506004961, guid: 278524ec72d71d542b475c0d996bb064, type: 3}
       propertyPath: rotationSpeed
-      value: 20
+      value: 1200
+      objectReference: {fileID: 0}
+    - target: {fileID: 506004962, guid: 278524ec72d71d542b475c0d996bb064, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4527307204270769550, guid: 278524ec72d71d542b475c0d996bb064,
         type: 3}
