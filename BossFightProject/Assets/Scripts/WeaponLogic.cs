@@ -65,6 +65,9 @@ public class WeaponLogic : MonoBehaviour
                     } else if(playerLogic.attackType == AttackType.Jump) {
                     bossLogic.TakeDamage(50);
                     }
+                    else if(playerLogic.attackType == AttackType.Throw) {
+                    bossLogic.TakeDamage(30);
+                    }
                     playerLogic.dealDamage = false;
                 }
             }
