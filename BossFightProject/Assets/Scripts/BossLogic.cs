@@ -68,6 +68,8 @@ public class BossLogic : MonoBehaviour
     bool isDead = false;
     public bool dealDamage = false;
 
+    [SerializeField]
+    Text endGameText;
 
     void Start()
     {
@@ -290,6 +292,7 @@ public class BossLogic : MonoBehaviour
             isDead = true;
             m_animator.SetTrigger("Die");
             m_characterController.enabled = false;
+            SetEndGameText();
         }
     }
 
@@ -310,4 +313,7 @@ public class BossLogic : MonoBehaviour
         dealDamage = true;
     }
 
+    public void SetEndGameText() {
+        endGameText.text = "You win.";
+    }
 }
