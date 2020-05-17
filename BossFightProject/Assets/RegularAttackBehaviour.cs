@@ -10,15 +10,17 @@ public class RegularAttackBehaviour : StateMachineBehaviour
     //    
     //}
 
-    // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
+    //OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         PlayerLogic playerLogic = animator.GetComponent<PlayerLogic>();
-        if(playerLogic) {
-            if(playerLogic.attackCombo) {
+        if (playerLogic)
+        {
+            if (playerLogic.attackCombo)
+            {
                 animator.SetBool("RegularAttack2", true);
-            }            
-        }  
+            }
+        }
     }
 
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
@@ -28,7 +30,7 @@ public class RegularAttackBehaviour : StateMachineBehaviour
         if(playerLogic) {
             if(!playerLogic.attackCombo) {
                 playerLogic.SetAttackingState(false);
-            } 
+            }
         } 
     }
 

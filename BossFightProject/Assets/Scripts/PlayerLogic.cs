@@ -68,6 +68,7 @@ public class PlayerLogic : MonoBehaviour
 
     public bool attacking = false;
     public bool attackCombo = false;
+    public bool comboListener = false;
 
     public AttackType attackType;
 
@@ -115,7 +116,7 @@ public class PlayerLogic : MonoBehaviour
             return;
         }
 
-        if(attacking) {
+        if(comboListener) {
             if(!attackCombo && ((attackType == AttackType.Regular && Input.GetButtonDown("RegularAttack")) || (attackType == AttackType.Strong && Input.GetButtonDown("StrongAttack")))) {
                 attackCombo = true;
             }
@@ -145,11 +146,13 @@ public class PlayerLogic : MonoBehaviour
                 animator.SetTrigger("RegularAttack1");
                 attackType = AttackType.Regular;
                 attacking = true;
+                comboListener = true;
             }
 
             if(Input.GetButtonDown("StrongAttack")) {
                 animator.SetTrigger("StrongAttack1");
                 attackType = AttackType.Strong;
+                comboListener = true;
                 attacking = true;
             }
 
@@ -264,6 +267,18 @@ public class PlayerLogic : MonoBehaviour
 
     public void DealDamage() {
         dealDamage = true;
+    }
+
+    public void UpdateComboListener(string status)
+    {
+        if(status == "Sleep")
+        {
+            comboListener = false;
+        }
+        else
+        {
+            comboListener = true;
+        }
     }
 
     public void TakeDamage(int damage) {

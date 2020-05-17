@@ -41,7 +41,7 @@ ModelImporter:
       name: Regular Attack 1
       takeName: mixamo.com
       internalID: 0
-      firstFrame: 0
+      firstFrame: 14
       lastFrame: 79
       wrapMode: 0
       orientationOffsetY: 0
@@ -51,10 +51,10 @@ ModelImporter:
       hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
-      loopBlendOrientation: 0
+      loopBlendOrientation: 1
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -65,6 +65,13 @@ ModelImporter:
       - time: 0.73417723
         functionName: DealDamage
         data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.8333333
+        functionName: UpdateComboListener
+        data: Sleep
         objectReferenceParameter: {instanceID: 0}
         floatParameter: 0
         intParameter: 0
