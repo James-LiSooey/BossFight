@@ -1856,6 +1856,7 @@ MonoBehaviour:
   m_rightHand: {fileID: 716526474}
   m_rightFoot: {fileID: 838280132}
   m_attackTimer: 5
+<<<<<<< HEAD
 --- !u!136 &378588627
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1870,6 +1871,8 @@ CapsuleCollider:
   m_Height: 1.4733347
   m_Direction: 1
   m_Center: {x: -0.0014613193, y: 0.16962908, z: 0.007143207}
+=======
+>>>>>>> 1f2463983afe691a1c6841bb745097c3783cb872
 --- !u!1 &2149899610728859769
 GameObject:
   m_ObjectHideFlags: 0
@@ -2300,6 +2303,23 @@ Transform:
   m_Father: {fileID: 2143813772461323809}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 18.608738, y: 91.796234, z: -79.69967}
+<<<<<<< HEAD
+=======
+--- !u!136 &378588627
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2149892820635146258}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.15
+  m_Height: 1.4733347
+  m_Direction: 1
+  m_Center: {x: -0.0014613193, y: 0.16962908, z: 0.007143207}
+>>>>>>> 1f2463983afe691a1c6841bb745097c3783cb872
 --- !u!1001 &3810136813395990066
 PrefabInstance:
   m_ObjectHideFlags: 0

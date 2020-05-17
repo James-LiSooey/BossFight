@@ -6,7 +6,19 @@ public class WeaponLogic : MonoBehaviour
 {
     public bool activated;
     public float rotationSpeed;
+
+    GameObject player;
+    GameObject boss;
+    PlayerLogic playerLogic;
+    BossLogic bossLogic;
     
+    private void Start() {
+        player = GameObject.FindGameObjectWithTag("Player");
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        playerLogic = player.GetComponent<PlayerLogic>();
+        bossLogic = boss.GetComponent<BossLogic>();
+    }
+
     void Update()
     {
         if (activated)
@@ -29,7 +41,7 @@ public class WeaponLogic : MonoBehaviour
     // }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("Layer: " + other.gameObject.layer);
+        //Debug.Log("Layer: " + other.gameObject.layer);
 
         if (other.gameObject.layer == 9 || other.gameObject.layer == 10 || other.gameObject.layer == 11)
         {
@@ -38,6 +50,23 @@ public class WeaponLogic : MonoBehaviour
             GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
             GetComponent<Rigidbody>().isKinematic = true;
             activated = false;
+        }
+
+        if(other.tag == "Boss") {
+            Debug.Log("DealDamage: " + playerLogic.dealDamage);
+            Debug.Log("AttackType: " + playerLogic.attackType);
+            
+             if(bossLogic) {
+                if(playerLogic.dealDamage) {
+                    if(playerLogic.attackType.ToString() == "Regular") {
+                        bossLogic.TakeDamage(10);
+                    } else if (playerLogic.attackType.ToString() == "Strong") {
+                        bossLogic.TakeDamage(20);
+                    } else if(playerLogic.attackType.ToString() == "Jump") {
+                    bossLogic.TakeDamage(50);
+                    }
+                }
+            }
         }
     }
 

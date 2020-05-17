@@ -65,10 +65,10 @@ public class PlayerLogic : MonoBehaviour
     bool hasWeapon = true;
     bool pulling = false;
 
-    bool attacking = false;
+    public bool attacking = false;
     public bool attackCombo = false;
 
-    AttackType attackType;
+    public AttackType attackType;
 
     [SerializeField]
     public Image reticle;
@@ -76,6 +76,8 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField]
     CinemachineFreeLook virtualCamera;
     CinemachineImpulseSource impulseSource;
+
+    public bool dealDamage = false;
     
 
     // Start is called before the first frame update
@@ -247,6 +249,11 @@ public class PlayerLogic : MonoBehaviour
     {
         attacking = isAttacking;
         attackCombo = false;
+        dealDamage = false;
+    }
+
+    public void DealDamage() {
+        dealDamage = true;
     }
 
     public void RotateToCamera(Transform t)
