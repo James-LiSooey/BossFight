@@ -12,7 +12,7 @@ enum BossState
     Attacking,
     Turning
 }
-enum BossAttackState
+public enum BossAttackState
 {
     Jump,
     Swipe,
@@ -26,7 +26,7 @@ enum BossAttackState
 public class BossLogic : MonoBehaviour
 {
     BossState m_bossState = BossState.Idle;
-    BossAttackState bossAttackState = BossAttackState.notReady;
+    public BossAttackState bossAttackState = BossAttackState.notReady;
     CharacterController m_characterController;
     Animator m_animator;
     GameObject m_player;
@@ -62,10 +62,16 @@ public class BossLogic : MonoBehaviour
     [SerializeField]
     Text bossHealthText;
 
+    [SerializeField]
+    Slider slider;
+
+    bool isDead = false;
+    public bool dealDamage = false;
+
 
     void Start()
     {
-        SetHealth();
+        SetSliderMaxHealth();
         m_player = GameObject.FindGameObjectWithTag("Player");
         m_characterController = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
@@ -74,6 +80,10 @@ public class BossLogic : MonoBehaviour
 
       private void FixedUpdate()
     {
+        if(isDead) {
+            return;
+        }
+
         if (m_attackTimer > 0  && bossAttackState == BossAttackState.notReady)
         {
             m_attackTimer -= Time.deltaTime;
@@ -238,7 +248,7 @@ public class BossLogic : MonoBehaviour
 
     public void AttackStart(string attackType)
     {
-        Debug.Log(attackType);
+        //Debug.Log(attackType);
         if (attackType == "SwipeAttack")
         {
             m_weapon.enabled = true;
@@ -260,14 +270,14 @@ public class BossLogic : MonoBehaviour
     }
     public void AttackEnd(string attackType)
     {
-        Debug.Log("End Attack");
+        //Debug.Log("End Attack");
         m_weapon.enabled = false;
         m_rightHand.enabled = false;
         m_rightFoot.enabled = false;
     }
     public void AttackEnd()
     {
-        Debug.Log("End Attack");
+        //Debug.Log("End Attack");
         m_weapon.enabled = false;
         m_rightHand.enabled = false;
         m_rightFoot.enabled = false;
@@ -275,13 +285,29 @@ public class BossLogic : MonoBehaviour
 
     public void TakeDamage(int damage) {
         health -= damage;
-        SetHealth();
+        UpdateHealthSlider();
+        if(health <= 0) {
+            isDead = true;
+            m_animator.SetTrigger("Die");
+            m_characterController.enabled = false;
+        }
     }
 
-    public void SetHealth() {
-        if(bossHealthText) {
-            bossHealthText.text = "Health: " + health;
+    public void UpdateHealthSlider() {
+        if(slider) {
+            slider.value = health;
         }
+    }
+
+    public void SetSliderMaxHealth() {
+        if(slider) {
+            slider.maxValue = health;
+            slider.value = health;
+        }
+    }
+
+    public void DealDamage() {
+        dealDamage = true;
     }
 
 }

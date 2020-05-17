@@ -55,16 +55,20 @@ public class WeaponLogic : MonoBehaviour
         if(other.tag == "Boss") {
             Debug.Log("DealDamage: " + playerLogic.dealDamage);
             Debug.Log("AttackType: " + playerLogic.attackType);
-            
+
              if(bossLogic) {
                 if(playerLogic.dealDamage) {
-                    if(playerLogic.attackType.ToString() == "Regular") {
+                    if(playerLogic.attackType == AttackType.Regular) {
                         bossLogic.TakeDamage(10);
-                    } else if (playerLogic.attackType.ToString() == "Strong") {
+                    } else if (playerLogic.attackType == AttackType.Strong) {
                         bossLogic.TakeDamage(20);
-                    } else if(playerLogic.attackType.ToString() == "Jump") {
+                    } else if(playerLogic.attackType == AttackType.Jump) {
                     bossLogic.TakeDamage(50);
                     }
+                    else if(playerLogic.attackType == AttackType.Throw) {
+                    bossLogic.TakeDamage(30);
+                    }
+                    playerLogic.dealDamage = false;
                 }
             }
         }

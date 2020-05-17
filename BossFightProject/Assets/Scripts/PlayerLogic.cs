@@ -8,7 +8,8 @@ using Cinemachine;
 public enum AttackType {
     Regular,
     Strong,
-    Jump
+    Jump,
+    Throw
 }
 
 public class PlayerLogic : MonoBehaviour
@@ -78,11 +79,18 @@ public class PlayerLogic : MonoBehaviour
     CinemachineImpulseSource impulseSource;
 
     public bool dealDamage = false;
-    
+
+    int health = 100;
+
+    bool isDead = false;
+
+    [SerializeField]
+    Slider slider;
 
     // Start is called before the first frame update
     void Start()
     {
+        SetSliderMaxHealth();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
 
@@ -99,7 +107,7 @@ public class PlayerLogic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (rolling)
+        if (rolling || isDead)
         {
             return;
         }
@@ -209,7 +217,7 @@ public class PlayerLogic : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (rolling || attacking)
+        if (rolling || attacking || isDead)
         {
             return;
         }
@@ -249,11 +257,33 @@ public class PlayerLogic : MonoBehaviour
     {
         attacking = isAttacking;
         attackCombo = false;
-        dealDamage = false;
     }
 
     public void DealDamage() {
         dealDamage = true;
+    }
+
+    public void TakeDamage(int damage) {
+        health -= damage;
+        UpdateHealthSlider();
+        if(health <= 0) {
+            isDead = true;
+            animator.SetTrigger("Die");
+            characterController.enabled = false;
+        }
+    }
+
+    public void UpdateHealthSlider() {
+        if(slider) {
+            slider.value = health;
+        }
+    }
+
+    public void SetSliderMaxHealth() {
+        if(slider) {
+            slider.maxValue = health;
+            slider.value = health;
+        }
     }
 
     public void RotateToCamera(Transform t)
@@ -287,7 +317,7 @@ public class PlayerLogic : MonoBehaviour
     public void WeaponThrow()
     {
         Aim(false, true, 1f);
-
+        attackType = AttackType.Throw;
         hasWeapon = false;
         weaponLogic.activated = true;
         weaponRb.isKinematic = false;

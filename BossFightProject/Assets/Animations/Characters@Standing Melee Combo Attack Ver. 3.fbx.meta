@@ -62,7 +62,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.7510548
+      - time: 0.73417723
         functionName: DealDamage
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -98,7 +98,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.2869198
+      - time: 0.25316453
         functionName: DealDamage
         data: 
         objectReferenceParameter: {instanceID: 0}
