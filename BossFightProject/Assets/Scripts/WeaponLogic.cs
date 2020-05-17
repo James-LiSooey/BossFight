@@ -53,9 +53,11 @@ public class WeaponLogic : MonoBehaviour
         }
 
         if(other.tag == "Boss") {
+            Debug.Log("DealDamage: " + playerLogic.dealDamage);
             Debug.Log("AttackType: " + playerLogic.attackType);
+            
              if(bossLogic) {
-                if(playerLogic.attacking) {
+                if(playerLogic.dealDamage) {
                     if(playerLogic.attackType.ToString() == "Regular") {
                         bossLogic.TakeDamage(10);
                     } else if (playerLogic.attackType.ToString() == "Strong") {

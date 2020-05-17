@@ -76,6 +76,8 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField]
     CinemachineFreeLook virtualCamera;
     CinemachineImpulseSource impulseSource;
+
+    public bool dealDamage = false;
     
 
     // Start is called before the first frame update
@@ -247,6 +249,11 @@ public class PlayerLogic : MonoBehaviour
     {
         attacking = isAttacking;
         attackCombo = false;
+        dealDamage = false;
+    }
+
+    public void DealDamage() {
+        dealDamage = true;
     }
 
     public void RotateToCamera(Transform t)
