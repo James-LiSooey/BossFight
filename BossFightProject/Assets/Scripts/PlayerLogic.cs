@@ -249,7 +249,6 @@ public class PlayerLogic : MonoBehaviour
     {
         attacking = isAttacking;
         attackCombo = false;
-        dealDamage = false;
     }
 
     public void DealDamage() {
