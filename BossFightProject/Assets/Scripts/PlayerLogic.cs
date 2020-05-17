@@ -287,12 +287,15 @@ public class PlayerLogic : MonoBehaviour
     public void TakeDamage(int damage) {
         health -= damage;
         UpdateHealthSlider();
+        
         if(health <= 0) {
             isDead = true;
             animator.SetTrigger("Die");
             characterController.enabled = false;
             SetEndGameText();
             endGameMenu.SetActive(true);
+        } else {
+            animator.SetTrigger("Hit");
         }
     }
 
