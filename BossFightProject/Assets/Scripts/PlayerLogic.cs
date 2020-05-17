@@ -87,6 +87,9 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField]
     Slider slider;
 
+    [SerializeField]
+    Text endGameText;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -270,6 +273,7 @@ public class PlayerLogic : MonoBehaviour
             isDead = true;
             animator.SetTrigger("Die");
             characterController.enabled = false;
+            SetEndGameText();
         }
     }
 
@@ -284,6 +288,10 @@ public class PlayerLogic : MonoBehaviour
             slider.maxValue = health;
             slider.value = health;
         }
+    }
+
+    public void SetEndGameText() {
+        endGameText.text = "You lose.";
     }
 
     public void RotateToCamera(Transform t)
