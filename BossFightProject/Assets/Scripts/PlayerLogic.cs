@@ -294,8 +294,6 @@ public class PlayerLogic : MonoBehaviour
             characterController.enabled = false;
             SetEndGameText();
             endGameMenu.SetActive(true);
-        } else {
-            animator.SetTrigger("Hit");
         }
     }
 

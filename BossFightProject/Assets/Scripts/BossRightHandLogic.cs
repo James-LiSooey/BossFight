@@ -23,11 +23,11 @@ public class BossRightHandLogic : MonoBehaviour
             if(playerLogic) {
                 if(bossLogic.dealDamage) {
                     if(bossLogic.bossAttackState == BossAttackState.Jump) {
-                        //playerAnimator.SetTrigger("Hit");
+                        playerAnimator.SetTrigger("SlamOrJumpHit");
                         playerLogic.TakeDamage(40);
                     }
                     else if(bossLogic.bossAttackState == BossAttackState.Slam) {
-                        //playerAnimator.SetTrigger("Hit");
+                        playerAnimator.SetTrigger("SlamOrJumpHit");
                         playerLogic.TakeDamage(20);
                     }
                     bossLogic.dealDamage = false;
