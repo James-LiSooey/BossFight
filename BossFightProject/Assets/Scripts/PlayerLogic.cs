@@ -4,6 +4,8 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
 using Cinemachine;
+using Unity.Mathematics;
+using System;
 
 public enum AttackType {
     Regular,
@@ -23,7 +25,7 @@ public class PlayerLogic : MonoBehaviour
 
     bool jump = false;
     float jumpHeight = 0.25f;
-    float gravity = 0.981f;
+    float gravity = 0.01f;
 
     Vector3 heightMovement;
     Vector3 verticalMovement;
@@ -173,10 +175,8 @@ public class PlayerLogic : MonoBehaviour
             }
         }
 
-
-
         horizontalInput = Input.GetAxis("Horizontal");
-        verticalInput = Input.GetAxis("Vertical");
+        verticalInput = Math.Max(Input.GetAxis("Vertical"), -.5f);
 
         movementInput = new Vector3(horizontalInput, 0, verticalInput);
 
@@ -252,6 +252,15 @@ public class PlayerLogic : MonoBehaviour
 
         forward.Normalize();
         right.Normalize();
+
+        if (!characterController.isGrounded)
+        {
+            desiredMoveDirection.y -= gravity;
+        }
+        else
+        {
+            desiredMoveDirection.y = 0;
+        }
 
         desiredMoveDirection = forward * verticalInput + right * horizontalInput;
         characterController.Move(desiredMoveDirection * Time.deltaTime * movementSpeed);
