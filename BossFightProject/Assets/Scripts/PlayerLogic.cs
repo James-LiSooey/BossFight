@@ -96,6 +96,12 @@ public class PlayerLogic : MonoBehaviour
     [SerializeField]
     GameObject endGameMenu;
 
+
+    ParticleSystem glowParticle;
+    [SerializeField]
+    TrailRenderer trail;
+    ParticleSystem catchParticle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -275,6 +281,7 @@ public class PlayerLogic : MonoBehaviour
     {
         attacking = isAttacking;
         attackCombo = false;
+        trail.emitting = false;
     }
 
     public void DealDamage() {
@@ -291,6 +298,14 @@ public class PlayerLogic : MonoBehaviour
         {
             comboListener = true;
         }
+    }
+
+    public void EnableTrail() {
+        trail.emitting = true;
+    }
+
+    public void DisableTrail() {
+        trail.emitting = false;
     }
 
     public void TakeDamage(int damage) {
@@ -365,6 +380,12 @@ public class PlayerLogic : MonoBehaviour
         weapon.transform.position += transform.right / 5;
         weaponRb.AddForce(Camera.main.transform.forward * throwPower + transform.up * 2, ForceMode.Impulse);
 
+        // ParticleSystem.EmissionModule em = trailParticle.emission;
+        // em.enabled = true;
+        //trailParticle.Play();
+
+        trail.emitting = true;
+
     }
 
     public void WeaponStartPull()
@@ -391,6 +412,8 @@ public class PlayerLogic : MonoBehaviour
 
         //Shake
         virtualCamera.GetComponent<CinemachineImpulseSource>().GenerateImpulse(Vector3.right);
+
+        trail.emitting = false;
     }
 
     public Vector3 GetQuadraticCurvePoint(float t, Vector3 p0, Vector3 p1, Vector3 p2)
