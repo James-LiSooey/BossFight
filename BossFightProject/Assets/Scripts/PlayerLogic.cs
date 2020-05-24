@@ -119,6 +119,21 @@ public class PlayerLogic : MonoBehaviour
         reticle.DOFade(0, 0);
     }
 
+    void Awake() {
+        SetSliderMaxHealth();
+        characterController = GetComponent<CharacterController>();
+        animator = GetComponent<Animator>();
+
+        camera = Camera.main.gameObject;
+        //impulseSource = virtualCamera.GetComponent<CinemachineImpulseSource>();
+        Cursor.visible = false;
+        weaponRb = weapon.GetComponent<Rigidbody>();
+        weaponLogic = weapon.GetComponent<WeaponLogic>();
+        origLocPos = weapon.localPosition;
+        origLocRot = weapon.localEulerAngles;
+        reticle.DOFade(0, 0);
+    }
+
     // Update is called once per frame
     void Update()
     {

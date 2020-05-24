@@ -82,7 +82,14 @@ public class BossLogic : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_movementTarget = transform.position;
     }
-
+    void OnEnable()
+    {
+        SetSliderMaxHealth();
+        m_player = GameObject.FindGameObjectWithTag("Player");
+        m_characterController = GetComponent<CharacterController>();
+        m_animator = GetComponent<Animator>();
+        m_movementTarget = transform.position;
+    }
       private void FixedUpdate()
     {
         if(isDead) {

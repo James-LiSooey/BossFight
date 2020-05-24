@@ -43,7 +43,4 @@ public class StartMenuLogic : MonoBehaviour
         Application.Quit();
     }
 
-    public void DisableAllChildren(){
-
-    }
 }

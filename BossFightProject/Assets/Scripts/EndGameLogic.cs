@@ -29,7 +29,7 @@ public class EndGameLogic : MonoBehaviour
     }
 
     public void OnRestartClicked() {
-        SceneManager.LoadScene("James Scene 2");
+        SceneManager.LoadScene("James Scene Start");
     }
 
     public void OnExitClicked() {

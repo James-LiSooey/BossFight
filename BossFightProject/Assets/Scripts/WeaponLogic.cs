@@ -19,8 +19,28 @@ public class WeaponLogic : MonoBehaviour
         bossLogic = boss.GetComponent<BossLogic>();
     }
 
+    void OnEnable() {
+        player = GameObject.FindGameObjectWithTag("Player");
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        playerLogic = player.GetComponent<PlayerLogic>();
+        bossLogic = boss.GetComponent<BossLogic>();
+    }
+
     void Update()
     {
+        if(!player){
+            player = GameObject.FindGameObjectWithTag("Player");
+            if(player){
+            playerLogic = player.GetComponent<PlayerLogic>();
+            }
+        }
+        if(!boss){
+            boss = GameObject.FindGameObjectWithTag("Boss");
+            if(boss){
+            bossLogic = boss.GetComponent<BossLogic>();
+            }
+        }
+
         if (activated)
         {
             transform.Rotate(Vector3.right * rotationSpeed * Time.deltaTime);
@@ -42,7 +62,11 @@ public class WeaponLogic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         //Debug.Log("Layer: " + other.gameObject.layer);
-
+        
+        if(!player || !boss){
+            return;
+        }
+        
         if (other.gameObject.layer == 9 || other.gameObject.layer == 10 || other.gameObject.layer == 11)
         {
             //print(collision.gameObject.name);

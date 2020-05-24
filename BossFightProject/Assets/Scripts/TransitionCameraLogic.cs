@@ -13,13 +13,15 @@ public class TransitionCameraLogic : MonoBehaviour
     GameObject m_boss;
 
     PlayerLogic m_playerLogic;
+    BossLogic m_bossLogic;
 
     public float m_transitionTimer = 0;
     float m_transitionTimelimit = 3f;
     // Start is called before the first frame update
     void Start()
     {
-        m_boss.SetActive(true);
+        m_bossLogic = m_boss.GetComponent<BossLogic>();
+        m_bossLogic.enabled = true;
     }
 
     // Update is called once per frame
