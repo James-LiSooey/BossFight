@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -12,22 +13,22 @@ MonoBehaviour:
   m_Name: BlenderSettings
   m_EditorClassIdentifier: 
   m_CustomBlends:
-  - m_From: '**ANY CAMERA**'
-    m_To: TURN ME ON CM_1
+  - m_From: StartCamera
+    m_To: TransitionCamera
     m_Blend:
       m_Style: 1
-      m_Time: 0.5
+      m_Time: 2.5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
         m_PreInfinity: 2
         m_PostInfinity: 2
         m_RotationOrder: 4
-  - m_From: '**ANY CAMERA**'
-    m_To: THEN TURN ME ON CM_2
+  - m_From: TransitionCamera
+    m_To: CM FreeLook1
     m_Blend:
-      m_Style: 0
-      m_Time: 2
+      m_Style: 4
+      m_Time: 0.5
       m_CustomCurve:
         serializedVersion: 2
         m_Curve: []
