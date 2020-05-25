@@ -65,6 +65,25 @@ public class BossLogic : MonoBehaviour
     [SerializeField]
     Slider slider;
 
+    [SerializeField]
+    AudioClip m_rightFootStepSound;
+
+    [SerializeField]
+    AudioClip m_leftFootStepSound;
+
+    [SerializeField]
+    AudioClip m_roarSound;
+
+    [SerializeField]
+    AudioClip m_attackSound;
+    
+    [SerializeField]
+    AudioClip m_slamSound;
+
+    AudioSource m_audioSource;
+
+    
+
     bool isDead = false;
     public bool dealDamage = false;
 
@@ -81,6 +100,7 @@ public class BossLogic : MonoBehaviour
         m_characterController = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
         m_movementTarget = transform.position;
+        m_audioSource = GetComponent<AudioSource>();
     }
     void OnEnable()
     {
@@ -330,5 +350,20 @@ public class BossLogic : MonoBehaviour
 
     public void SetEndGameText() {
         endGameText.text = "You win.";
+    }
+
+    public void PlaySound(int index) {
+        //0 = leftfoot; 1= rightfoot; 2 = slam; 3 = roar; 4 = attack
+        if(index == 0) {
+            m_audioSource.PlayOneShot(m_leftFootStepSound);
+        } else if (index == 1) {
+            m_audioSource.PlayOneShot(m_rightFootStepSound);
+        } else if (index == 2) {
+            m_audioSource.PlayOneShot(m_slamSound);
+        } else if (index == 3) {
+            m_audioSource.PlayOneShot(m_roarSound);
+        } else if (index == 4) {
+            m_audioSource.PlayOneShot(m_attackSound);
+        }
     }
 }

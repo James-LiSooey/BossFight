@@ -102,12 +102,25 @@ public class PlayerLogic : MonoBehaviour
     TrailRenderer trail;
     ParticleSystem catchParticle;
 
+        [SerializeField]
+    AudioClip rightFootStepSound;
+    [SerializeField]
+    AudioClip leftFootStepSound;
+    [SerializeField]
+    AudioClip attackSound;
+    [SerializeField]
+    AudioClip catchSound;
+    [SerializeField]
+    AudioClip yellSound;
+    AudioSource audioSource;
+
     // Start is called before the first frame update
     void Start()
     {
         SetSliderMaxHealth();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         camera = Camera.main.gameObject;
         //impulseSource = virtualCamera.GetComponent<CinemachineImpulseSource>();
@@ -444,5 +457,20 @@ public class PlayerLogic : MonoBehaviour
         //virtualCamera.GetRig(0).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
      //virtualCamera.GetRig(1).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
      //   virtualCamera.GetRig(2).GetCinemachineComponent<CinemachineComposer>().m_TrackedObjectOffset = new Vector3(offset, 1.5f, -2.0f);
+    }
+
+    public void PlaySound(int index) {
+        //0 = leftfoot; 1= rightfoot; 2 = attack; 3 = catch; 4 = yell
+        if(index == 0) {
+            audioSource.PlayOneShot(leftFootStepSound);
+        } else if (index == 1) {
+            audioSource.PlayOneShot(rightFootStepSound);
+        } else if (index == 2) {
+            audioSource.PlayOneShot(attackSound);
+        } else if (index == 3) {
+            audioSource.PlayOneShot(catchSound);
+        } else if (index == 4) {
+            audioSource.PlayOneShot(yellSound);
+        }
     }
 }
