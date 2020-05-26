@@ -1280,7 +1280,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 81
+  Priority: 25
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -1476,7 +1476,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 111
+  Priority: 25
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -2004,12 +2004,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_rightFootStepSound
       value: 
-      objectReference: {fileID: 8300000, guid: ff870439e8d1a0a46bd2b7df60422e9a, type: 3}
+      objectReference: {fileID: 8300000, guid: 3806fcba6201be3428e6e356e0fc0a5f, type: 3}
     - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
       propertyPath: m_leftFootStepSound
       value: 
-      objectReference: {fileID: 8300000, guid: ef726533b08a4cd41a693ae933badc4e, type: 3}
+      objectReference: {fileID: 8300000, guid: 0f9859bee0b4989498e5f6ee34dabfbf, type: 3}
     - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
       propertyPath: m_roarSound
@@ -2019,12 +2019,12 @@ PrefabInstance:
         type: 3}
       propertyPath: m_attackSound
       value: 
-      objectReference: {fileID: 8300000, guid: 2f48ccad5c675584abe48a4eeb4e4119, type: 3}
+      objectReference: {fileID: 8300000, guid: 9bb3dbbdef7b305408c075f0fc5e56a6, type: 3}
     - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
       propertyPath: m_slamSound
       value: 
-      objectReference: {fileID: 8300000, guid: 235300ac2a6e9dd4bad59ad8994afc7f, type: 3}
+      objectReference: {fileID: 8300000, guid: 1c5ff242d98281a44a82609d05a79ab0, type: 3}
     - target: {fileID: 5095500882997202324, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
       propertyPath: m_Enabled
@@ -5682,15 +5682,15 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 44f6904fe51113742956949789573581, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 71a293a9fa475c640afc608940165fdf, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.569
+  m_Volume: 0.681
   m_Pitch: 1
   Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 256
+  Priority: 214
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -6844,7 +6844,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 256
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
@@ -9520,12 +9520,12 @@ PrefabInstance:
         type: 3}
       propertyPath: rightFootStepSound
       value: 
-      objectReference: {fileID: 8300000, guid: 3500568008eeae2479f89fe3191e8780, type: 3}
+      objectReference: {fileID: 8300000, guid: 88e914b402d5e544882a9acb73baa996, type: 3}
     - target: {fileID: 1734061230711062568, guid: cf4b501428191304cb48a1854d7b9bfc,
         type: 3}
       propertyPath: leftFootStepSound
       value: 
-      objectReference: {fileID: 8300000, guid: df41103ec0cc41f4e8cecb5898355fbd, type: 3}
+      objectReference: {fileID: 8300000, guid: ea2d2ee00fe05ac448037981667c5805, type: 3}
     - target: {fileID: 1734061230711062568, guid: cf4b501428191304cb48a1854d7b9bfc,
         type: 3}
       propertyPath: attackSound
