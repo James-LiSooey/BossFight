@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using Cinemachine;
 using Unity.Mathematics;
 using System;
+using TMPro;
 
 public enum AttackType {
     Regular,
@@ -91,7 +92,7 @@ public class PlayerLogic : MonoBehaviour
     Slider slider;
 
     [SerializeField]
-    Text endGameText;
+    TMP_Text endGameText;
     
     [SerializeField]
     GameObject endGameMenu;

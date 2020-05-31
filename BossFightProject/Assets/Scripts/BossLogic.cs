@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Contracts;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 enum BossState
 {
@@ -88,7 +89,7 @@ public class BossLogic : MonoBehaviour
     public bool dealDamage = false;
 
     [SerializeField]
-    Text endGameText;
+    TMP_Text endGameText;
 
     [SerializeField]
     GameObject endGameMenu;
