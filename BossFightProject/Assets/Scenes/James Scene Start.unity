@@ -1747,17 +1747,17 @@ PrefabInstance:
     - target: {fileID: 860480557071216173, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 24.4
+      value: 28.02
       objectReference: {fileID: 0}
     - target: {fileID: 860480557071216173, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.39
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 860480557071216173, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -16.8
+      value: -19.07
       objectReference: {fileID: 0}
     - target: {fileID: 860480557071216173, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
@@ -1898,6 +1898,31 @@ PrefabInstance:
         type: 3}
       propertyPath: m_movementSpeedJump
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
+        type: 3}
+      propertyPath: jumpAttackDamage
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
+        type: 3}
+      propertyPath: slamAttackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
+        type: 3}
+      propertyPath: swipeAttackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
+        type: 3}
+      propertyPath: stompAttackDamage
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
+        type: 3}
+      propertyPath: health
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1597441279608032381, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
@@ -10439,6 +10464,26 @@ PrefabInstance:
         type: 3}
       propertyPath: throwPower
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734061230711062568, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: regularAttackDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734061230711062568, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: strongAttackDamage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734061230711062568, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: jumpAttackDamage
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1734061230711062568, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: throwAttackDamage
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2851332023620722961, guid: cf4b501428191304cb48a1854d7b9bfc,
         type: 3}
