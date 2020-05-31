@@ -66,7 +66,7 @@ public class PlayerLogic : MonoBehaviour
 
     bool walking = true;
     bool aiming = false;
-    bool hasWeapon = true;
+    public bool hasWeapon = true;
     bool pulling = false;
 
     public bool attacking = false;
@@ -427,6 +427,7 @@ public class PlayerLogic : MonoBehaviour
         weapon.DOBlendableLocalRotateBy(Vector3.right * 90, 0.5f);
         weaponLogic.activated = true;
         pulling = true;
+        EnableTrail();
     }
 
     public void WeaponCatch()

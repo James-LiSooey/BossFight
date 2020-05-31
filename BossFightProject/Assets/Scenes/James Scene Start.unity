@@ -1174,6 +1174,12 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!96 &195810700 stripped
+TrailRenderer:
+  m_CorrespondingSourceObject: {fileID: 1086516020, guid: cf4b501428191304cb48a1854d7b9bfc,
+    type: 3}
+  m_PrefabInstance: {fileID: 6715891985797705329}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &215772853 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8719905847770737679, guid: 9f065cc0a13a1254fb33e89377b62cd9,
@@ -8799,6 +8805,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 757565399}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1983857715 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 863077391519267177, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
+    type: 3}
+  m_PrefabInstance: {fileID: 397969710}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1986044200 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1437647870325339359, guid: 94c035eb2bc76ed4a828ee85c286410e,
@@ -10406,6 +10418,36 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5378767957436542293, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: m_Center.y
+      value: 0.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378767957436542293, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378767957436542293, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378767957436542293, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5378767957436542294, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: trail
+      value: 
+      objectReference: {fileID: 195810700}
+    - target: {fileID: 5378767957436542294, guid: cf4b501428191304cb48a1854d7b9bfc,
+        type: 3}
+      propertyPath: bossRoot
+      value: 
+      objectReference: {fileID: 1983857715}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf4b501428191304cb48a1854d7b9bfc, type: 3}
 --- !u!1001 &6797463447181550042
