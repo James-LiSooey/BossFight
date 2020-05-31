@@ -11,12 +11,20 @@ public class WeaponLogic : MonoBehaviour
     GameObject boss;
     PlayerLogic playerLogic;
     BossLogic bossLogic;
+
+    Rigidbody rigidBody;
+
+    [SerializeField]
+    TrailRenderer trail;
+    [SerializeField]
+    GameObject bossRoot;
     
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
         boss = GameObject.FindGameObjectWithTag("Boss");
         playerLogic = player.GetComponent<PlayerLogic>();
         bossLogic = boss.GetComponent<BossLogic>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     void OnEnable() {
@@ -67,20 +75,23 @@ public class WeaponLogic : MonoBehaviour
             return;
         }
         
-        if (other.gameObject.layer == 9 || other.gameObject.layer == 10 || other.gameObject.layer == 11)
-        {
-            //print(collision.gameObject.name);
-            GetComponent<Rigidbody>().Sleep();
-            GetComponent<Rigidbody>().collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
-            GetComponent<Rigidbody>().isKinematic = true;
-            activated = false;
-        }
-
         if(other.tag == "Boss") {
             Debug.Log("DealDamage: " + playerLogic.dealDamage);
             Debug.Log("AttackType: " + playerLogic.attackType);
 
              if(bossLogic) {
+                 if(!playerLogic.hasWeapon) {
+                    trail.emitting = false;
+
+                    rigidBody.Sleep();
+                    rigidBody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+                    rigidBody.isKinematic = true;
+                    activated = false;
+                    
+                    transform.parent = bossRoot.transform;
+                 }
+                 
+        }
                 if(playerLogic.dealDamage) {
                     if(playerLogic.attackType == AttackType.Regular) {
                         bossLogic.TakeDamage(10);
@@ -97,15 +108,3 @@ public class WeaponLogic : MonoBehaviour
             }
         }
     }
-
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     if (other.CompareTag("Breakable"))
-    //     {
-    //         if(other.GetComponent<BreakBoxScript>() != null)
-    //         {
-    //             other.GetComponent<BreakBoxScript>().Break();
-    //         }
-    //     }
-    // }
-}
