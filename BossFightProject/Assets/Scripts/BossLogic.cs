@@ -37,6 +37,9 @@ public class BossLogic : MonoBehaviour
     Vector3 m_verticalMovement;
     Vector3 m_heightMovement;
     public float m_movementSpeed = 2.0f;
+    float m_movementSpeedJump = 0;
+    Vector3 m_jumpAttackDirection;
+    
     public float m_currentSpeed = 0f;
     public float m_acceleration = .01f;
     public Boolean m_closing = false;
@@ -45,7 +48,7 @@ public class BossLogic : MonoBehaviour
     public float m_distanceToTarget;
     float m_gravity = 0.01f;
 
-    public float m_turnAngle = 20f;
+    public float m_turnAngle = 10f;
     public float m_stoppingDistance = 3.0f;
 
     [SerializeField]
@@ -133,7 +136,7 @@ public class BossLogic : MonoBehaviour
 
         if (m_attackTimer > 0  && bossAttackState == BossAttackState.notReady)
         {
-            m_attackTimer -= Time.deltaTime;
+            m_attackTimer -= Time.deltaTime * UnityEngine.Random.Range(.5f, 2f);
         }
         else if(m_attackTimer <= 0 && bossAttackState == BossAttackState.notReady)
         {
@@ -154,16 +157,18 @@ public class BossLogic : MonoBehaviour
 
         if(bossAttackState == BossAttackState.ready)
         {
-            if (m_distanceToTarget < 10) {
+            if (m_distanceToTarget < 20) {
                 
                 m_bossState = BossState.Attacking;
 
-                if (m_distanceToTarget > 6)
+                if (m_distanceToTarget > 8)
                 {
+                    m_movementSpeedJump = m_distanceToTarget/2.0f;
+                    m_jumpAttackDirection = direction;
                     bossAttackState = BossAttackState.Jump;
                     BossTriggerAttack(correctedDirection,"JumpAttack");
                 }
-                else if(m_distanceToTarget < 3.5)
+                else if(m_distanceToTarget < 4)
                 {
                     bossAttackState = BossAttackState.Stomp;
                     BossTriggerAttack(correctedDirection, "StompAttack");
@@ -266,7 +271,9 @@ public class BossLogic : MonoBehaviour
 
             case BossState.Attacking:
                 m_closing = false;
-                m_currentSpeed = 0;
+                m_currentSpeed = m_movementSpeedJump;
+                Vector3 movementAttackVector = new Vector3(m_jumpAttackDirection.x * m_movementSpeedJump * Time.deltaTime, 0, m_jumpAttackDirection.z * m_movementSpeedJump * Time.deltaTime);
+                m_characterController.Move(movementAttackVector);
                 m_animator.SetFloat("TurnInput", 0f);
                 m_animator.SetFloat("MovementInput", 0f);
                 break;
@@ -282,6 +289,7 @@ public class BossLogic : MonoBehaviour
     public void AttackAnimationEnd()
     {
         bossAttackState = BossAttackState.notReady;
+        m_movementSpeedJump = 0;
         m_bossState = BossState.Idle;
         m_attackTimer = MAXATTACKTIME;
     }
@@ -306,6 +314,7 @@ public class BossLogic : MonoBehaviour
         }
         else if (attackType == "JumpAttack")
         {
+            m_movementSpeedJump = 0;
             m_weapon.enabled = true;
             m_rightHand.enabled = true;
         }

@@ -1894,6 +1894,11 @@ PrefabInstance:
       propertyPath: m_slamSound
       value: 
       objectReference: {fileID: 8300000, guid: 1c5ff242d98281a44a82609d05a79ab0, type: 3}
+    - target: {fileID: 1597441279608032377, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
+        type: 3}
+      propertyPath: m_movementSpeedJump
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1597441279608032381, guid: 0e54ca27d8e6f9c43a52c5abe2cc0d9a,
         type: 3}
       propertyPath: m_IsKinematic
