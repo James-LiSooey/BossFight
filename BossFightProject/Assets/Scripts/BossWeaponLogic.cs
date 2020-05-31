@@ -23,14 +23,11 @@ public class BossWeaponLogic : MonoBehaviour
             if(playerLogic) {
                 if(bossLogic.dealDamage) {
                     if(bossLogic.bossAttackState == BossAttackState.Jump) {
-                        playerAnimator.SetTrigger("SlamOrJumpHit");
-                        playerLogic.TakeDamage(40);
+                        playerLogic.GotHit(3);
                     } else if(bossLogic.bossAttackState == BossAttackState.Slam) {
-                        playerAnimator.SetTrigger("SlamOrJumpHit");
-                        playerLogic.TakeDamage(20);
+                        playerLogic.GotHit(2);
                     } else if(bossLogic.bossAttackState == BossAttackState.Swipe) {
-                        playerAnimator.SetTrigger("SwipeHit");
-                        playerLogic.TakeDamage(15);
+                        playerLogic.GotHit(1);
                     }
                     bossLogic.dealDamage = false;
                 }
