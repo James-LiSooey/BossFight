@@ -297,7 +297,9 @@ public class PlayerLogic : MonoBehaviour
         {
             if (Mathf.Abs(horizontalInput) > 0.1f || Mathf.Abs(verticalInput) > 0.1f)
             {
-                transform.forward = camera.transform.forward;
+                var forwardTransform = camera.transform.forward;
+                forwardTransform.y = 0f;
+                transform.forward = forwardTransform;
             }
         }
 
