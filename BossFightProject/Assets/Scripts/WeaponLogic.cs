@@ -94,14 +94,13 @@ public class WeaponLogic : MonoBehaviour
         }
                 if(playerLogic.dealDamage) {
                     if(playerLogic.attackType == AttackType.Regular) {
-                        bossLogic.TakeDamage(10);
+                        bossLogic.TakeDamage(playerLogic.regularAttackDamage);
                     } else if (playerLogic.attackType == AttackType.Strong) {
-                        bossLogic.TakeDamage(20);
+                        bossLogic.TakeDamage(playerLogic.strongAttackDamage);
                     } else if(playerLogic.attackType == AttackType.Jump) {
-                    bossLogic.TakeDamage(50);
-                    }
-                    else if(playerLogic.attackType == AttackType.Throw) {
-                    bossLogic.TakeDamage(30);
+                    bossLogic.TakeDamage(playerLogic.jumpAttackDamage);
+                    } else if(playerLogic.attackType == AttackType.Throw) {
+                    bossLogic.TakeDamage(playerLogic.throwAttackDamage);
                     }
                     playerLogic.dealDamage = false;
                 }

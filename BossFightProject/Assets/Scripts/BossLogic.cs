@@ -58,7 +58,17 @@ public class BossLogic : MonoBehaviour
     const float MAXATTACKTIME = 5f;
     public float m_attackTimer = MAXATTACKTIME;
 
-    int health = 100;
+    [SerializeField]
+    float health = 100;
+
+    [SerializeField]
+    public float stompAttackDamage = 8.0f;
+    [SerializeField]
+    public float swipeAttackDamage = 8.0f;
+    [SerializeField]
+    public float slamAttackDamage = 16.0f;
+    [SerializeField]
+    public float jumpAttackDamage = 20.0f;
 
     [SerializeField]
     Text bossHealthText;
@@ -94,6 +104,9 @@ public class BossLogic : MonoBehaviour
     [SerializeField]
     GameObject endGameMenu;
 
+    PlayerLogic m_playerLogic;
+
+
     void Start()
     {
         SetSliderMaxHealth();
@@ -107,6 +120,7 @@ public class BossLogic : MonoBehaviour
     {
         SetSliderMaxHealth();
         m_player = GameObject.FindGameObjectWithTag("Player");
+        m_playerLogic = m_player.GetComponent<PlayerLogic>();
         m_characterController = GetComponent<CharacterController>();
         m_animator = GetComponent<Animator>();
         m_movementTarget = transform.position;
@@ -316,11 +330,12 @@ public class BossLogic : MonoBehaviour
         m_rightFoot.enabled = false;
     }
 
-    public void TakeDamage(int damage) {
-        if (health <= 0)
+    public void TakeDamage(float damage) {
+        if (health <= 0  || m_playerLogic.gotHit)
         {
             return;
         }
+
         health -= damage;
         UpdateHealthSlider();
         if(health <= 0) {

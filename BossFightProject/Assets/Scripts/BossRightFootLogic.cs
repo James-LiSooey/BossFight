@@ -23,8 +23,7 @@ public class BossRightFootLogic : MonoBehaviour
         if(other.tag == "Player") {
             if(playerLogic) {
                 if(bossLogic.dealDamage) {
-                    playerAnimator.SetTrigger("StompHit");
-                    playerLogic.TakeDamage(15);
+                    playerLogic.GotHit(0);
                     bossLogic.dealDamage = false;
                 }
             }

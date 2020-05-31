@@ -69,6 +69,8 @@ public class PlayerLogic : MonoBehaviour
     public bool hasWeapon = true;
     bool pulling = false;
 
+    public bool gotHit = false;
+
     public bool attacking = false;
     public bool attackCombo = false;
     public bool comboListener = false;
@@ -84,7 +86,18 @@ public class PlayerLogic : MonoBehaviour
 
     public bool dealDamage = false;
 
-    int health = 100;
+    [SerializeField]
+    float health = 100;
+
+    [SerializeField]
+    public float regularAttackDamage = 5.0f;
+    [SerializeField]
+    public float strongAttackDamage = 7.0f;
+    [SerializeField]
+    public float jumpAttackDamage = 10.0f;
+
+    [SerializeField]
+    public float throwAttackDamage = 10.0f;
 
     bool isDead = false;
 
@@ -96,6 +109,9 @@ public class PlayerLogic : MonoBehaviour
     
     [SerializeField]
     GameObject endGameMenu;
+
+    GameObject boss;
+    BossLogic bossLogic;
 
 
     ParticleSystem glowParticle;
@@ -131,6 +147,9 @@ public class PlayerLogic : MonoBehaviour
         origLocPos = weapon.localPosition;
         origLocRot = weapon.localEulerAngles;
         reticle.DOFade(0, 0);
+
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        bossLogic = boss.GetComponent<BossLogic>();
     }
 
     void Awake() {
@@ -146,12 +165,15 @@ public class PlayerLogic : MonoBehaviour
         origLocPos = weapon.localPosition;
         origLocRot = weapon.localEulerAngles;
         reticle.DOFade(0, 0);
+
+        boss = GameObject.FindGameObjectWithTag("Boss");
+        bossLogic = boss.GetComponent<BossLogic>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (rolling || isDead)
+        if (rolling || isDead || gotHit)
         {
             return;
         }
@@ -261,7 +283,7 @@ public class PlayerLogic : MonoBehaviour
     private void FixedUpdate()
     {
 
-        if (rolling || attacking || isDead)
+        if (rolling || attacking || isDead || gotHit)
         {
             return;
         }
@@ -337,7 +359,7 @@ public class PlayerLogic : MonoBehaviour
         trail.emitting = false;
     }
 
-    public void TakeDamage(int damage) {
+    public void TakeDamage(float damage) {
         health -= damage;
         UpdateHealthSlider();
         
@@ -347,6 +369,31 @@ public class PlayerLogic : MonoBehaviour
             characterController.enabled = false;
             SetEndGameText();
             endGameMenu.SetActive(true);
+        }
+    }
+
+    public void GotHit(int index) {
+        //0 = Stomp; 1 = Swipe; 2 = Slam; 3 = Jump;
+        gotHit = true;
+        attacking = false;
+        aiming = false;
+        pulling = false;
+        attackCombo = false;
+        comboListener = false;
+        dealDamage = false;
+
+        if(index == 0) {
+            animator.SetTrigger("StompHit");
+            TakeDamage(bossLogic.stompAttackDamage);
+        } else if (index == 1) {
+            animator.SetTrigger("SwipeHit");
+            TakeDamage(bossLogic.swipeAttackDamage);
+        } else if (index == 2) {
+            animator.SetTrigger("SlamOrJumpHit");
+            TakeDamage(bossLogic.slamAttackDamage);
+        } else if (index == 3) {
+            animator.SetTrigger("SlamOrJumpHit");
+            TakeDamage(bossLogic.jumpAttackDamage);
         }
     }
 
