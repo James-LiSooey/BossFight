@@ -62,16 +62,16 @@ public class BossLogic : MonoBehaviour
     public float m_attackTimer = MAXATTACKTIME;
 
     [SerializeField]
-    float health = 100;
+    int health = 100;
 
     [SerializeField]
-    public float stompAttackDamage = 8.0f;
+    public int stompAttackDamage = 8;
     [SerializeField]
-    public float swipeAttackDamage = 8.0f;
+    public int swipeAttackDamage = 8;
     [SerializeField]
-    public float slamAttackDamage = 16.0f;
+    public int slamAttackDamage = 16;
     [SerializeField]
-    public float jumpAttackDamage = 20.0f;
+    public int jumpAttackDamage = 20;
 
     [SerializeField]
     Text bossHealthText;
@@ -317,6 +317,7 @@ public class BossLogic : MonoBehaviour
             m_movementSpeedJump = 0;
             m_weapon.enabled = true;
             m_rightHand.enabled = true;
+            m_rightFoot.enabled = true;
         }
         else if (attackType == "SlamAttack")
         {
@@ -339,12 +340,11 @@ public class BossLogic : MonoBehaviour
         m_rightFoot.enabled = false;
     }
 
-    public void TakeDamage(float damage) {
+    public void TakeDamage(int damage) {
         if (health <= 0  || m_playerLogic.gotHit)
         {
             return;
         }
-
         health -= damage;
         UpdateHealthSlider();
         if(health <= 0) {

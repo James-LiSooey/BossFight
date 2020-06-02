@@ -87,17 +87,17 @@ public class PlayerLogic : MonoBehaviour
     public bool dealDamage = false;
 
     [SerializeField]
-    float health = 100;
+    int health = 100;
 
     [SerializeField]
-    public float regularAttackDamage = 5.0f;
+    public int regularAttackDamage = 5;
     [SerializeField]
-    public float strongAttackDamage = 7.0f;
+    public int strongAttackDamage = 7;
     [SerializeField]
-    public float jumpAttackDamage = 10.0f;
+    public int jumpAttackDamage = 10;
 
     [SerializeField]
-    public float throwAttackDamage = 10.0f;
+    public int throwAttackDamage = 10;
 
     bool isDead = false;
 
@@ -119,10 +119,6 @@ public class PlayerLogic : MonoBehaviour
     TrailRenderer trail;
     ParticleSystem catchParticle;
 
-        [SerializeField]
-    AudioClip rightFootStepSound;
-    [SerializeField]
-    AudioClip leftFootStepSound;
     [SerializeField]
     AudioClip attackSound;
     [SerializeField]
@@ -361,7 +357,8 @@ public class PlayerLogic : MonoBehaviour
         trail.emitting = false;
     }
 
-    public void TakeDamage(float damage) {
+    public void TakeDamage(int damage) {
+        //Debug.Log("Inside PlayerLogic.TakeDamage");
         health -= damage;
         UpdateHealthSlider();
         
@@ -375,6 +372,8 @@ public class PlayerLogic : MonoBehaviour
     }
 
     public void GotHit(int index) {
+        //Debug.Log("Inside GotHit");
+        //Debug.Log("GotHit index: " + index);
         //0 = Stomp; 1 = Swipe; 2 = Slam; 3 = Jump;
         gotHit = true;
         attacking = false;
@@ -386,16 +385,24 @@ public class PlayerLogic : MonoBehaviour
 
         if(index == 0) {
             animator.SetTrigger("StompHit");
-            TakeDamage(bossLogic.stompAttackDamage);
+            //Debug.Log("Taking damamge" + GameObject.FindGameObjectWithTag("Boss").GetComponent<BossLogic>().stompAttackDamage);
+            //TakeDamage(GameObject.FindGameObjectWithTag("Boss").GetComponent<BossLogic>().stompAttackDamage);
+            TakeDamage(20);
         } else if (index == 1) {
             animator.SetTrigger("SwipeHit");
-            TakeDamage(bossLogic.swipeAttackDamage);
+        //     Debug.Log("Taking damamge" + GameObject.FindGameObjectWithTag("Boss").GetComponent<BossLogic>().swipeAttackDamage);
+        //     TakeDamage(GameObject.FindGameObjectWithTag("Boss").GetComponent<BossLogic>().swipeAttackDamage);
+            TakeDamage(15);
         } else if (index == 2) {
             animator.SetTrigger("SlamOrJumpHit");
-            TakeDamage(bossLogic.slamAttackDamage);
+        //     Debug.Log("Taking damamge" + GameObject.FindGameObjectWithTag("Boss").GetComponent<BossLogic>().slamAttackDamage);
+        //     TakeDamage(GameObject.FindGameObjectWithTag("Boss").GetComponent<BossLogic>().slamAttackDamage);
+            TakeDamage(25);
         } else if (index == 3) {
             animator.SetTrigger("SlamOrJumpHit");
-            TakeDamage(bossLogic.jumpAttackDamage);
+        //     Debug.Log("Taking damamge" + GameObject.FindGameObjectWithTag("Boss").GetComponent<BossLogic>().jumpAttackDamage);
+        //     TakeDamage(GameObject.FindGameObjectWithTag("Boss").GetComponent<BossLogic>().jumpAttackDamage);
+            TakeDamage(40);
         }
     }
 
@@ -512,11 +519,7 @@ public class PlayerLogic : MonoBehaviour
 
     public void PlaySound(int index) {
         //0 = leftfoot; 1= rightfoot; 2 = attack; 3 = catch; 4 = yell
-        if(index == 0) {
-            audioSource.PlayOneShot(leftFootStepSound);
-        } else if (index == 1) {
-            audioSource.PlayOneShot(rightFootStepSound);
-        } else if (index == 2) {
+        if (index == 2) {
             audioSource.PlayOneShot(attackSound);
         } else if (index == 3) {
             audioSource.PlayOneShot(catchSound);

@@ -21,12 +21,20 @@ public class BossRightFootLogic : MonoBehaviour
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player") {
-            if(playerLogic) {
-                if(bossLogic.dealDamage) {
-                    playerLogic.GotHit(0);
-                    bossLogic.dealDamage = false;
+            //Debug.Log("Inside RightFoot OnTriggerEnter");
+            //if(playerLogic) {
+                if(GetComponentInParent<BossLogic>().dealDamage) {
+
+                    if(GetComponentInParent<BossLogic>().bossAttackState == BossAttackState.Stomp) {
+                        //Debug.Log("Boss Stomp Attack");
+                        other.GetComponent<PlayerLogic>().GotHit(0);                    
+                    } else if(GetComponentInParent<BossLogic>().bossAttackState == BossAttackState.Jump) {
+                        //Debug.Log("Boss Jump Attack");
+                        other.GetComponent<PlayerLogic>().GotHit(3);
+                    }
+                    GetComponentInParent<BossLogic>().dealDamage = false;
                 }
-            }
-        }
+            //}
+        }   
     }
 }

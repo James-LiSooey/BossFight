@@ -74,11 +74,8 @@ public class WeaponLogic : MonoBehaviour
         if(!player || !boss){
             return;
         }
-        
-        if(other.tag == "Boss") {
-            Debug.Log("DealDamage: " + playerLogic.dealDamage);
-            Debug.Log("AttackType: " + playerLogic.attackType);
 
+        if(other.tag == "Boss") {
              if(bossLogic) {
                  if(!playerLogic.hasWeapon) {
                     trail.emitting = false;
@@ -91,16 +88,17 @@ public class WeaponLogic : MonoBehaviour
                     transform.parent = bossRoot.transform;
                  }
                  
-        }
+            }
                 if(playerLogic.dealDamage) {
                     if(playerLogic.attackType == AttackType.Regular) {
-                        bossLogic.TakeDamage(playerLogic.regularAttackDamage);
+
+                        other.GetComponent<BossLogic>().TakeDamage(playerLogic.regularAttackDamage);
                     } else if (playerLogic.attackType == AttackType.Strong) {
-                        bossLogic.TakeDamage(playerLogic.strongAttackDamage);
+                        other.GetComponent<BossLogic>().TakeDamage(playerLogic.strongAttackDamage);
                     } else if(playerLogic.attackType == AttackType.Jump) {
-                    bossLogic.TakeDamage(playerLogic.jumpAttackDamage);
+                        other.GetComponent<BossLogic>().TakeDamage(playerLogic.jumpAttackDamage);
                     } else if(playerLogic.attackType == AttackType.Throw) {
-                    bossLogic.TakeDamage(playerLogic.throwAttackDamage);
+                        other.GetComponent<BossLogic>().TakeDamage(playerLogic.throwAttackDamage);
                     }
                     playerLogic.dealDamage = false;
                 }

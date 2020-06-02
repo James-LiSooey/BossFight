@@ -8,29 +8,35 @@ public class BossRightHandLogic : MonoBehaviour
     GameObject boss;
     PlayerLogic playerLogic;
     BossLogic bossLogic;
-    Animator playerAnimator;
     
     private void Start() {
         player = GameObject.FindGameObjectWithTag("Player");
         boss = GameObject.FindGameObjectWithTag("Boss");
         playerLogic = player.GetComponent<PlayerLogic>();
         bossLogic = boss.GetComponent<BossLogic>();
-        playerAnimator = player.GetComponent<Animator>();
     }
+
+    // private void OnEnable() {
+    //     player = GameObject.FindGameObjectWithTag("Player");
+    //     boss = GameObject.FindGameObjectWithTag("Boss");
+    //     playerLogic = player.GetComponent<PlayerLogic>();
+    //     bossLogic = boss.GetComponent<BossLogic>();
+    // }
 
     private void OnTriggerEnter(Collider other) {
         if(other.tag == "Player") {
+            //Debug.Log("Inside RightHand OnTriggerEnter");
             if(playerLogic) {
-                if(bossLogic.dealDamage) {
-                    if(bossLogic.bossAttackState == BossAttackState.Jump) {
-                        playerAnimator.SetTrigger("SlamOrJumpHit");
-                        playerLogic.TakeDamage(40);
+                if(GetComponentInParent<BossLogic>().dealDamage) {
+                    if(GetComponentInParent<BossLogic>().bossAttackState == BossAttackState.Jump) {
+                        //Debug.Log("Boss Jump Attack");
+                        other.GetComponent<PlayerLogic>().GotHit(3);
                     }
-                    else if(bossLogic.bossAttackState == BossAttackState.Slam) {
-                        playerAnimator.SetTrigger("SlamOrJumpHit");
-                        playerLogic.TakeDamage(20);
+                    else if(GetComponentInParent<BossLogic>().bossAttackState == BossAttackState.Slam) {
+                        //Debug.Log("Boss Slam Attack");
+                        other.GetComponent<PlayerLogic>().GotHit(2);
                     }
-                    bossLogic.dealDamage = false;
+                    GetComponentInParent<BossLogic>().dealDamage = false;
                 }
             }
         }
